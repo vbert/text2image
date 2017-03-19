@@ -1,0 +1,9 @@
+AddDefaultCharset UTF-8
+
+<IfModule dir_module>
+    DirectoryIndex index.php index.html
+</IfModule>
+
+<FilesMatch \.php$>
+	SetHandler application/x-httpd-php
+</FilesMatch>

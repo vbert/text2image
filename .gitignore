@@ -1,0 +1,14 @@
+db.sqlite3
+__pycache__
+*.pyc
+.DS_Store
+._.DS_Store
+gunicorn.sh
+*.~
+*.bak
+*.kpf
+*.komodoproject
+.project
+.settings/*
+dev.db
+nbproject/*
