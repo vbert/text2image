@@ -53,7 +53,7 @@ class JSON_File {
 	 */
 	public function get($path) {
 		$json = $this->read($path);
-		$data = json_decode($json, TRUE);
+		$data = json_decode($json);
 		return $data;
 	}
 
@@ -93,10 +93,14 @@ class JSON_File {
 	 */
 	private function write($path, $content) {
 		$file = $path . $this->get_name();
-		$handle = fopen($file, 'w+');
-		$size = fwrite($handle, $content);
-		fclose($handle);
-		return $size;
+		if (file_exists($file)) {
+			$handle = fopen($file, 'w+');
+			$size = fwrite($handle, $content);
+			fclose($handle);
+			return $size;
+		} else {
+			return '[{"error":"Plik nie istnieje!"}]';
+		}
 	}
 
 }

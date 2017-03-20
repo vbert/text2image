@@ -24,10 +24,15 @@ $slug = $Slug->make($txt);
 
 $meta = $JsonF->get_name();
 
-$path = PROJECTSPATH . '/nazwa_as_md5/';
+$project_name = 'Nazwa jako md5';
+$md5 = md5($project_name);
+
+$path = PROJECTSPATH . "{$md5}/";
+
 $data = array(
 	array(
-		'name' => 'Projekt nr 1',
+		'name' => $project_name,
+		'md5' => $md5,
 		'background' => array(
 			'image' => 'bg01.jpg',
 			'color' => 255
@@ -36,6 +41,8 @@ $data = array(
 );
 $jf = $JsonF->set($path, $data);
 
+$jd = $JsonF->get($path);
+
 $vars = array(
 	'IP' => $IP->get(),
 	'BASEPATH' => BASEPATH,
@@ -43,9 +50,10 @@ $vars = array(
 	'URI_HOME' => URI_HOME,
 	'STRING' => $txt,
 	'SLUG' => $slug,
+	'PATH' => $path,
 	'META' => $meta,
 	'META_SIZE' => $jf,
-	$_SERVER
+	'DATA' => $jd
 );
 var_dump($vars);
 
