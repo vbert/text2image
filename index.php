@@ -9,30 +9,25 @@ define('BASEPATH', dirname(__FILE__));
 require_once 'config/general.php';
 ob_start();
 
-require LIBPATH . 'IP_Address.class.php';
-require LIBPATH . 'Session.class.php';
-require LIBPATH . 'Slug.class.php';
-require LIBPATH . 'JSON_File.class.php';
-
-$IP = new \VbertTools\IP_Address();
-$Session = new \VbertTools\Session();
-$Slug = new \VbertTools\Slug();
-$JsonF = new \VbertTools\JSON_File();
-
-$txt = 'Gąsienicówka blada i |-+| i włocha&taś|ćżź%32?ń.%678|';
+/**
+ * For example
+ */
+$txt = 'Gąsienicówka blada !wsobczak@gmail.com! i |-+| i włocha&taś|ćżź%32?ń.%678|';
 $slug = $Slug->make($txt);
 
 $meta = $JsonF->get_name();
 
-$project_name = 'Nazwa jako md5';
-$md5 = md5($project_name);
+$project_name = 'Kubek z misiem';
+$tmail = 'wsobczak@gmail.com';
 
-$path = PROJECTSPATH . "{$md5}/";
+$Core->set_project_path($project_name);
+$Core->set_user_project_path($project_name, $tmail);
+$path = $Core->get_project_path();
+$upath = $Core->get_user_project_path();
 
 $data = array(
 	array(
 		'name' => $project_name,
-		'md5' => $md5,
 		'background' => array(
 			'image' => 'bg01.jpg',
 			'color' => 255
@@ -40,7 +35,6 @@ $data = array(
 	)
 );
 $jf = $JsonF->set($path, $data);
-
 $jd = $JsonF->get($path);
 
 $vars = array(
@@ -51,34 +45,26 @@ $vars = array(
 	'STRING' => $txt,
 	'SLUG' => $slug,
 	'PATH' => $path,
+	'UPATH' => $upath,
 	'META' => $meta,
 	'META_SIZE' => $jf,
-	'DATA' => $jd
+	'DATA' => $jd,
+	'CONTROLLERS' => $Core->get_controllers_dir(),
+	'VIEWS' => $Core->get_views_dir()
 );
-var_dump($vars);
-
-//$Session = new Session();
-//$Action = new Action();
-//$controller_basename = (defined('BASENAME')) ? BASENAME : 'index';
-//$controller_action = (defined('DEFAULT_ACTION')) ? DEFAULT_ACTION : 'show';
-//$controller = $Action->build_file_name(array($controller_basename, $controller_action));
-//$message = $Session->get('message');
+/**
+ * /end - For example
+ */
 // For debug
 if (DEBUG_MODE) {
 	$VBDebug->clear();
 	$VBDebug->add('BASEPATH', BASEPATH);
 	$VBDebug->add('GET', $_GET);
 	$VBDebug->add('POST', $_POST);
-	//$VBDebug->add('SESSION', $_SESSION);
+	$VBDebug->add('SESSION', $_SESSION);
+	$VBDebug->add('CUSTOMVARS', $vars);
 }
 
-/*
-  require $Action->controllers_dir() . $controller;
-
-  require $Action->views_dir(TRUE) . 'head.php';
-  require $Action->views_dir(TRUE) . 'navbar.php';
-  require $Action->views_dir() . SRC_FILE;
-  require $Action->views_dir(TRUE) . 'footer.php';
- */
+require $Core->get_views_dir() . 'base.php';
 
 ob_end_flush();

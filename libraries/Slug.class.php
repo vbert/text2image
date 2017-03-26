@@ -29,19 +29,30 @@ class Slug {
 	/**
 	 * Follow transformation
 	 * @param string $text String to Slug
+	 * @param boolean $as_email Set as email
 	 * @return string Text sluged
 	 */
-	public function make($text) {
-		$this->clean();
-		$this->set($text);
-		$this->sanitize();
-		$this->to_lower();
-		$this->replace_dot();
-		$this->remove_chars();
-		$this->only_url_chars();
-		$this->white_to_dash();
-		$this->chars_to_dash();
-		$this->trim_dash();
+	public function make($text, $as_email = FALSE) {
+		if ($as_email) {
+			$this->clean();
+			$this->set($text);
+			$this->sanitize();
+			$this->to_lower();
+			$this->replace_at();
+			$this->replace_dot('_doot_');
+			$this->trim_dash();
+		} else {
+			$this->clean();
+			$this->set($text);
+			$this->sanitize();
+			$this->to_lower();
+			$this->replace_dot();
+			$this->remove_chars();
+			$this->only_url_chars();
+			$this->white_to_dash();
+			$this->chars_to_dash();
+			$this->trim_dash();
+		}
 		return $this->get();
 	}
 
@@ -86,6 +97,17 @@ class Slug {
 		$txt = $this->get();
 		if (strlen($txt) > 0) {
 			$this->set(strtolower($txt));
+		}
+	}
+
+	/**
+	 * Zmiana @ na _aatt_
+	 * @param string $change_to
+	 */
+	private function replace_at($change_to = '_aatt_') {
+		$txt = $this->get();
+		if (strlen($txt) > 0) {
+			$this->set(str_replace('@', $change_to, $txt));
 		}
 	}
 

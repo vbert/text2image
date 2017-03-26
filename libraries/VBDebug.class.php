@@ -1,5 +1,7 @@
 <?php
 
+namespace VbertTools;
+
 if (!defined('BASEPATH')) {
 	exit('Bezpośredni dostęp do skryptu jest niedozwolony!');
 }

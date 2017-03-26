@@ -23,12 +23,13 @@ if (LOCAL_SERV) {
 	define('DEBUG_MODE', TRUE);
 } else {
 	error_reporting(0);
-	define('BASEURI', 'http://...');
+	define('BASEURI', 'http://...'); // Base uri application
 	define('DEBUG_MODE', FALSE);
 }
 
 define('APP_NAME', 'Text2Image');
 define('DEFAULT_HEAD_TITLE', 'Edytor tekstu na zdjęciu.');
+define('URI_HOME', BASEURI);
 
 $today = getdate();
 define('CURRENT_YEAR', $today['year']);
@@ -41,25 +42,17 @@ define('ALERT_DANGER', 'alert alert-danger');
 define('SIGN_DOT', '.');
 
 define('LIBPATH', implode(DIRECTORY_SEPARATOR, array(BASEPATH, 'libraries', '')));
+define('VIEWSPATH', implode(DIRECTORY_SEPARATOR, array(BASEPATH, 'views', '')));
+define('CONTROLLERSPATH', implode(DIRECTORY_SEPARATOR, array(BASEPATH, 'controllers', '')));
 define('PROJECTSPATH', implode(DIRECTORY_SEPARATOR, array(BASEPATH, 'projects', '')));
+define('PROJECTSUSERSPATH', implode(DIRECTORY_SEPARATOR, array(BASEPATH, 'projects', '%s', 'users', '')));
 
-define('URI_HOME', BASEURI);
 define('PROJECTS_URI', BASEURI . 'projects/');
-
-define('PROJECT_IMAGES', 'images/');
 define('PROJECT_FONTS', 'fonts/');
 define('PROJECT_META_FILE', 'meta.json');
 define('PROJECT_BACKGROUD_FILE', 'bg.jpg');
+
+define('PROJECTS_USERS_URI', PROJECTS_URI . '%s/users/');
 define('PROJECT_OUTPUT_FILE', 'out.jpg');
 
-if (DEBUG_MODE) {
-	require(LIBPATH . 'VBDebug.class.php');
-	$VBDebug = new VBDebug();
-} else {
-	$VBDebug = NULL;
-}
-
-//require LIBPATH . 'Session.class.php';
-//require LIBPATH . 'helper_slug.php';
-//require LIBPATH . 'helper_tools.php';
-//require LIBPATH . 'Action.class.php';
+require LIBPATH . 'init.php';

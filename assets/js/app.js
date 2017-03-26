@@ -1,6 +1,6 @@
 	/**
 	 * @author Wojciech Sobczak, wsobczak@gmail.com
-	 * @copyright (c) 2016
+	 * @copyright (c) 2017
 	 */
 	"use strict";
 
