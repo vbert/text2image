@@ -17,24 +17,25 @@ class JSON_File {
 	/**
 	 * @var string File name
 	 */
-	protected $name;
+	protected $file_name;
 
 	/**
 	 * Constructor
 	 */
-	public function __construct($file_name = 'meta.json') {
-		$this->set_name($file_name);
+	public function __construct() {
+		$default_file_name = 'meta.json';
+		$this->set_file_name($default_file_name);
 	}
 
 	/**
 	 * Set file name
-	 * @param string $name File name
+	 * @param string $file_name File name
 	 */
-	public function set_name($name) {
-		if (strlen($name) > 0) {
-			$this->name = $name;
+	public function set_file_name($file_name) {
+		if (strlen($file_name) > 0) {
+			$this->file_name = $file_name;
 		} else {
-			$this->name = '';
+			$this->file_name = '';
 		}
 	}
 
@@ -42,8 +43,8 @@ class JSON_File {
 	 * Get file name
 	 * @return string
 	 */
-	public function get_name() {
-		return $this->name;
+	public function get_file_name() {
+		return $this->file_name;
 	}
 
 	/**
@@ -63,7 +64,7 @@ class JSON_File {
 	 * @return string
 	 */
 	private function read($path) {
-		$file = $path . $this->get_name();
+		$file = $path . $this->get_file_name();
 		if (file_exists($file)) {
 			$content = file_get_contents($file);
 		} else {
@@ -92,7 +93,7 @@ class JSON_File {
 	 * @return integer|boolen
 	 */
 	private function write($path, $content) {
-		$file = $path . $this->get_name();
+		$file = $path . $this->get_file_name();
 		if (file_exists($file)) {
 			$handle = fopen($file, 'w+');
 			$size = fwrite($handle, $content);

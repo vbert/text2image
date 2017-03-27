@@ -2,5 +2,9 @@
 	{
 		"name": "Open Sans Regular",
 		"file": "OpenSans-Regular.ttf"
+	},
+	{
+		"name": "URW Bookman L Bold",
+		"file": "URWBookmanL-Bold.ttf"
 	}
 ]

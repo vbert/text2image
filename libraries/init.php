@@ -14,11 +14,11 @@ if (DEBUG_MODE) {
 require LIBPATH . 'IP_Address.class.php';
 require LIBPATH . 'Session.class.php';
 require LIBPATH . 'Slug.class.php';
-require LIBPATH . 'JSON_File.class.php';
+require LIBPATH . 'Project.class.php';
 require LIBPATH . 'Core.class.php';
 
 $IP = new \VbertTools\IP_Address();
 $Session = new \VbertTools\Session();
 $Slug = new \VbertTools\Slug();
-$JsonF = new \VbertTools\JSON_File();
+$Project = new \VbertTools\Project();
 $Core = new \VbertTools\Core($Slug);

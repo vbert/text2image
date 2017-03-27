@@ -24,10 +24,9 @@
 						<a class="navbar-brand" href="<?= URI_HOME; ?>"><?= APP_NAME; ?></a>
 					</div>
 					<div id="menubar-collapse" class="navbar-collapse collapse">
-						<ul class="nav navbar-nav">
-							<li class="active"><a href="#">Home</a></li>
-							<li><a href="#about">About</a></li>
-							<li><a href="#contact">Contact</a></li>
+						<ul class="nav navbar-nav navbar-right">
+							<li class="active"><a href="#">Lista projektów</a></li>
+							<!--
 							<li class="dropdown">
 								<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
 								<ul class="dropdown-menu">
@@ -40,11 +39,7 @@
 									<li><a href="#">One more separated link</a></li>
 								</ul>
 							</li>
-						</ul>
-						<ul class="nav navbar-nav navbar-right">
-							<li><a href="../navbar/">Default</a></li>
-							<li><a href="../navbar-static-top/">Static top</a></li>
-							<li class="active"><a href="./">Fixed top <span class="sr-only">(current)</span></a></li>
+							-->
 						</ul>
 					</div><!--/.nav-collapse -->
 				</div>
@@ -70,9 +65,9 @@
 		?>
 		<!-- JavaScript -->
 		<script type="text/javascript">
-				var Text2Image = {
-					baseuri: "<?= BASEURI; ?>"
-				};
+			var Text2Image = {
+				baseuri: "<?= BASEURI; ?>"
+			};
 		</script>
 		<script src="<?= BASEURI; ?>assets/js/jquery-3.1.1.min.js" type="text/javascript"></script>
 		<script src="<?= BASEURI; ?>assets/js/bootstrap.min.js" type="text/javascript"></script>

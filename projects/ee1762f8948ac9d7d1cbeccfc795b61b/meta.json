@@ -1,1 +1,29 @@
-[{"name":"Kubek z misiem","background":{"image":"bg01.jpg","color":255}}]
+[
+	{
+		"name": "Kubek z misiem",
+		"dir": "ee1762f8948ac9d7d1cbeccfc795b61b",
+		"background": "bg.jpg",
+		"texts": [
+			{
+				"x": 325,
+				"y": 355,
+				"w": 540,
+				"y": 70,
+				"align": "center",
+				"font": ["URW Bookman L Bold"],
+				"font_size": 50,
+				"font_color": [0, 142, 226]
+			},
+			{
+				"x": 325,
+				"y": 565,
+				"w": 540,
+				"y": 120,
+				"align": "center",
+				"font": ["URW Bookman L Bold"],
+				"font_size": 100,
+				"font_color": [230, 0, 0]
+			}
+		]
+	}
+]

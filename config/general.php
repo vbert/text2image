@@ -44,6 +44,7 @@ define('SIGN_DOT', '.');
 define('LIBPATH', implode(DIRECTORY_SEPARATOR, array(BASEPATH, 'libraries', '')));
 define('VIEWSPATH', implode(DIRECTORY_SEPARATOR, array(BASEPATH, 'views', '')));
 define('CONTROLLERSPATH', implode(DIRECTORY_SEPARATOR, array(BASEPATH, 'controllers', '')));
+define('GLOBALFONTSPATH', implode(DIRECTORY_SEPARATOR, array(BASEPATH, 'fonts', '')));
 define('PROJECTSPATH', implode(DIRECTORY_SEPARATOR, array(BASEPATH, 'projects', '')));
 define('PROJECTSUSERSPATH', implode(DIRECTORY_SEPARATOR, array(BASEPATH, 'projects', '%s', 'users', '')));
 

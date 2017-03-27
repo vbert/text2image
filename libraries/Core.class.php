@@ -32,11 +32,6 @@ class Core {
 	/**
 	 * @var string
 	 */
-	protected $project_path;
-
-	/**
-	 * @var string
-	 */
 	protected $user_project_path;
 
 	/**
@@ -78,30 +73,6 @@ class Core {
 	 */
 	public function get_views_dir() {
 		return $this->views_path;
-	}
-
-	/**
-	 * Set path to project files
-	 * @param string $project_name
-	 */
-	public function set_project_path($project_name) {
-		if (strlen($project_name) > 0) {
-			$hash_name = md5($project_name);
-			$format = PROJECTSPATH . '%s/';
-			$args = array($hash_name);
-			$path = vsprintf($format, $args);
-			$this->project_path = $path;
-		} else {
-			$this->project_path = '';
-		}
-	}
-
-	/**
-	 * Get path to project files
-	 * @return string
-	 */
-	public function get_project_path() {
-		return $this->project_path;
 	}
 
 	/**

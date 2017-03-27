@@ -5,6 +5,10 @@
  * @copyright (c) 2017
  */
 
+body {
+	padding-top: 70px;
+}
+
 body,
 h1, h2, h3, h4, p,
 .font-OpenSans {
