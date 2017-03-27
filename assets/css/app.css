@@ -6,7 +6,8 @@
  */
 
 body {
-	padding-top: 70px;
+	padding-top: 50px;
+	background-color: #DDD;
 }
 
 body,
@@ -20,7 +21,7 @@ ul {
 	margin-bottom: .56em;
 	line-height: 21px;
 	font-size: 14px;
-	color: #777;
+	color: #666;
 }
 
 a {
@@ -52,9 +53,26 @@ a {
 }
 
 /**
+ * HEADER
+ */
+.navbar {
+	margin: 0;
+}
+
+/**
  * MAIN
  */
-main {}
+main {
+	background-color: #FFF;
+}
+
+/**
+ * FOOTER
+ */
+footer {
+	padding-top: .4em;
+	border-top: 1px solid #CCC;
+}
 
 /* VB-DEBUG div */
 #vb-debug {

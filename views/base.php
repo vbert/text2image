@@ -11,7 +11,7 @@
 	</head>
 	<body>
 		<!-- Navbar -->
-		<header class="page-header">
+		<header>
 			<nav class="navbar navbar-fixed-top navbar-default">
 				<div class="container">
 					<div class="navbar-header">
@@ -45,7 +45,17 @@
 				</div>
 			</nav>
 		</header><!-- /Navbar -->
-
+		<!-- Page Content -->
+		<main class="page-content">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-12">
+						<h1>Text2Image</h1>
+					</div>
+				</div>
+			</div>
+		</main>
+		<!-- /Page Content -->
 		<!-- Footer -->
 		<footer>
 			<div class="container">
@@ -65,9 +75,9 @@
 		?>
 		<!-- JavaScript -->
 		<script type="text/javascript">
-			var Text2Image = {
-				baseuri: "<?= BASEURI; ?>"
-			};
+				var Text2Image = {
+					baseuri: "<?= BASEURI; ?>"
+				};
 		</script>
 		<script src="<?= BASEURI; ?>assets/js/jquery-3.1.1.min.js" type="text/javascript"></script>
 		<script src="<?= BASEURI; ?>assets/js/bootstrap.min.js" type="text/javascript"></script>
