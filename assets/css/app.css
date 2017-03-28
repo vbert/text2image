@@ -7,7 +7,7 @@
 
 body {
 	padding-top: 50px;
-	background-color: #DDD;
+	background-color: #EEE;
 }
 
 body,
@@ -71,7 +71,7 @@ main {
  */
 footer {
 	padding-top: .4em;
-	border-top: 1px solid #CCC;
+	border-top: 1px solid #DDD;
 }
 
 /* VB-DEBUG div */
