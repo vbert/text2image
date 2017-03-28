@@ -4,6 +4,8 @@ if (!defined('BASEPATH')) {
 	exit('Bezpośredni dostęp do skryptu jest niedozwolony!');
 }
 
+require_once 'user.php';
+
 /**
  * General configuration
  * @package Text2Image
@@ -23,12 +25,12 @@ if (LOCAL_SERV) {
 	define('DEBUG_MODE', TRUE);
 } else {
 	error_reporting(0);
-	define('BASEURI', 'http://...'); // Base uri application
+	define('BASEURI', $user_config['baseuri']);
 	define('DEBUG_MODE', FALSE);
 }
 
-define('APP_NAME', 'Text2Image');
-define('DEFAULT_HEAD_TITLE', 'Edytor tekstu na zdjęciu.');
+define('APP_NAME', $user_config['app_name']);
+define('DEFAULT_HEAD_TITLE', $user_config['head_title']);
 define('URI_HOME', BASEURI);
 
 $today = getdate();
@@ -52,6 +54,9 @@ define('PROJECTS_URI', BASEURI . 'projects/');
 define('PROJECT_FONTS', 'fonts/');
 define('PROJECT_META_FILE', 'meta.json');
 define('PROJECT_BACKGROUD_FILE', 'bg.jpg');
+define('PROJECT_EXAMPLE_FILE', 'project.jpg');
+define('PROJECT_TEMPLATE_FILE', 'template.jpg');
+define('PROJECT_THUMBNAIL_FILE', 'thumbnail.jpg');
 
 define('PROJECTS_USERS_URI', PROJECTS_URI . '%s/users/');
 define('PROJECT_OUTPUT_FILE', 'out.jpg');

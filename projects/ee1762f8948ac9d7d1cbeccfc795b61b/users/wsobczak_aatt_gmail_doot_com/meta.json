@@ -1,1 +1,18 @@
-[]
+[
+	{
+		"texts": {
+			"t1": {
+				"text": "Bardzo fajny kubek",
+				"font": ["URW Bookman L Bold"],
+				"font_size": 50,
+				"font_color": [0, 142, 226]
+			},
+			"t2": {
+				"text": "MISIA",
+				"font": ["URW Bookman L Bold"],
+				"font_size": 100,
+				"font_color": [230, 0, 0]
+			}
+		}
+	}
+]

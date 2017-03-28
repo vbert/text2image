@@ -50,7 +50,7 @@
 			<div class="container">
 				<div class="row">
 					<div class="col-md-12">
-						<h1>Text2Image</h1>
+						<?= $content; ?>
 					</div>
 				</div>
 			</div>
@@ -75,9 +75,9 @@
 		?>
 		<!-- JavaScript -->
 		<script type="text/javascript">
-				var Text2Image = {
-					baseuri: "<?= BASEURI; ?>"
-				};
+			var Text2Image = {
+				baseuri: "<?= BASEURI; ?>"
+			};
 		</script>
 		<script src="<?= BASEURI; ?>assets/js/jquery-3.1.1.min.js" type="text/javascript"></script>
 		<script src="<?= BASEURI; ?>assets/js/bootstrap.min.js" type="text/javascript"></script>

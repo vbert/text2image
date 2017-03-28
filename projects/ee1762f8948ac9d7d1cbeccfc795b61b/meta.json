@@ -3,8 +3,8 @@
 		"name": "Kubek z misiem",
 		"dir": "ee1762f8948ac9d7d1cbeccfc795b61b",
 		"background": "bg.jpg",
-		"texts": [
-			{
+		"texts": {
+			"t1": {
 				"x": 325,
 				"y": 355,
 				"w": 540,
@@ -14,7 +14,7 @@
 				"font_size": 50,
 				"font_color": [0, 142, 226]
 			},
-			{
+			"t2": {
 				"x": 325,
 				"y": 565,
 				"w": 540,
@@ -24,6 +24,6 @@
 				"font_size": 100,
 				"font_color": [230, 0, 0]
 			}
-		]
+		}
 	}
 ]

@@ -9,37 +9,19 @@ define('BASEPATH', dirname(__FILE__));
 require_once 'config/general.php';
 ob_start();
 
-/**
- * For example
- */
-/*
-  $txt = 'Gąsienicówka blada !wsobczak@gmail.com! i |-+| i włocha&taś|ćżź%32?ń.%678|';
-  $slug = $Slug->make($txt);
+$object = $Core->get_current_object();
+$action = $Core->get_current_action();
 
-  $project_name = 'Kubek z misiem';
-  $tmail = 'wsobczak@gmail.com';
-
-  $data = array(
-  array(
-  'name' => $project_name,
-  'background' => array(
-  'image' => 'bg01.jpg',
-  'color' => 255
-  )
-  )
-  );
- */
+if ($Core->in_objects($object) && $Core->in_actions($action)) {
+	$controller_name = $Core->build_controller_name(array($object, $action));
+}
 
 
 // For debug
 $vars = array(
-	'IP' => $IP->get(),
-	'BASEPATH' => BASEPATH,
-	'DEBUG_MODE' => DEBUG_MODE,
-	'URI_HOME' => URI_HOME,
-	'PROJECTS' => $Project->get_projects(),
-	'CONTROLLERS' => $Core->get_controllers_dir(),
-	'VIEWS' => $Core->get_views_dir()
+	'OBJECT' => $object,
+	'ACTION' => $action,
+	'CONTROLLER' => $controller_name
 );
 
 // For debug
@@ -52,6 +34,6 @@ if (DEBUG_MODE) {
 	$VBDebug->add('CUSTOMVARS', $vars);
 }
 
-require $Core->get_views_dir() . 'base.php';
+include $Core->get_controllers_dir() . $controller_name;
 
 ob_end_flush();
