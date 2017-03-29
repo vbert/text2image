@@ -37,6 +37,16 @@ class Core {
 	/**
 	 * @var array
 	 */
+	protected $users;
+
+	/**
+	 * @var string
+	 */
+	protected $default_user;
+
+	/**
+	 * @var array
+	 */
 	protected $objects;
 
 	/**
@@ -61,6 +71,7 @@ class Core {
 		$this->Slug = $Slug;
 		$this->set_controllers_path();
 		$this->set_views_path();
+		$this->set_users();
 		$this->set_objects();
 		$this->set_actions();
 	}
@@ -73,10 +84,24 @@ class Core {
 	public function build_uri($parameters = array()) {
 		if (count($parameters) > 0) {
 			$query_string = implode('&', $parameters);
-			return BASEURI . '?' . $quesry_string;
+			return BASEURI . '?' . $query_string;
 		} else {
 			return BASEURI;
 		}
+	}
+
+	/**
+	 * Building a admin www address
+	 * @param array $parameters
+	 * @return string
+	 */
+	public function build_admin_uri($parameters = array()) {
+		$hash_user = $this->get_current_user();
+		$query_string = 'u=' . $hash_user;
+		if (count($parameters) > 0) {
+			$query_string .= implode('&', $parameters);
+		}
+		return ADMINBASEURI . '?' . $query_string;
 	}
 
 	/**
@@ -101,6 +126,86 @@ class Core {
 	public function generate_hash() {
 		$unique_id = uniqid(rand(), TRUE);
 		return hash('sha512', $unique_id);
+	}
+
+	/**
+	 * Set users array
+	 * @param array $users
+	 */
+	public function set_users($users = array()) {
+		if (count($users) > 0) {
+			$this->users = $users;
+		} else {
+			$default = array(
+				'USER', 'EDITOR', 'ADMIN'
+			);
+			$this->users = $default;
+		}
+		$this->set_default_user('USER');
+	}
+
+	/**
+	 * Set default user
+	 * @param string $user
+	 */
+	public function set_default_user($user) {
+		if (strlen($user) > 0) {
+			$this->default_user = $user;
+		}
+	}
+
+	/**
+	 * Get default user
+	 * @return string
+	 */
+	public function get_default_user() {
+		return $this->default_user;
+	}
+
+	/**
+	 * Get current user or set defaul
+	 * @return string
+	 */
+	public function get_current_user() {
+		$default = $this->get_default_user();
+		return $this->input('u', $this->hash_user($default));
+	}
+
+	/**
+	 * Generate hash user
+	 * @param string $user
+	 * @return string | boolean
+	 */
+	public function hash_user($user = '') {
+		if (strlen($user) > 0 and $this->in_users($user)) {
+			$today = getdate();
+			$grain = $today['year'] . $today['mon'] . $today['mday'];
+			return hash('sha256', $user . $grain);
+		} else {
+			return FALSE;
+		}
+	}
+
+	public function check_perm($user = '') {
+		$hash_users = array(
+			$this->hash_user('EDITOR'),
+			$this->hash_user('ADMIN')
+		);
+		if (strlen($user) > 0) {
+			$current_user = $this->hash_user($user);
+		} else {
+			$current_user = $this->get_current_user();
+		}
+		return in_array($current_user, $hash_users, TRUE);
+	}
+
+	/**
+	 * Check whether the given user is in the array
+	 * @param string $user
+	 * @return boolean
+	 */
+	public function in_users($user) {
+		return in_array($user, $this->users, TRUE);
 	}
 
 	/**

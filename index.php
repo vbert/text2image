@@ -9,16 +9,22 @@ define('BASEPATH', dirname(__FILE__));
 require_once 'config/general.php';
 ob_start();
 
+$user = $Core->get_current_user();
 $object = $Core->get_current_object();
 $action = $Core->get_current_action();
 
 if ($Core->in_objects($object) && $Core->in_actions($action)) {
 	$controller_name = $Core->build_controller_name(array($object, $action));
+	$uri_admin = $Core->build_admin_uri();
+} else {
+	header('Location: ' . URI_HOME);
 }
+
 
 
 // For debug
 $vars = array(
+	'USER' => $user,
 	'OBJECT' => $object,
 	'ACTION' => $action,
 	'CONTROLLER' => $controller_name

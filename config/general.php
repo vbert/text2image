@@ -32,6 +32,7 @@ if (LOCAL_SERV) {
 define('APP_NAME', $user_config['app_name']);
 define('DEFAULT_HEAD_TITLE', $user_config['head_title']);
 define('URI_HOME', BASEURI);
+define('ADMINBASEURI', BASEURI . 'admin/');
 
 $today = getdate();
 define('CURRENT_YEAR', $today['year']);

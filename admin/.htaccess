@@ -1,0 +1,8 @@
+AuthType Basic
+AuthName "Panel administracyjny. Podaj haslo."
+AuthBasicProvider file
+AuthUserFile /var/www/etc/apppasswords
+Require valid-user
+
+Options -Indexes
+
