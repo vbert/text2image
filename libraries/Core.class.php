@@ -37,16 +37,6 @@ class Core {
 	/**
 	 * @var array
 	 */
-	protected $users;
-
-	/**
-	 * @var string
-	 */
-	protected $default_user;
-
-	/**
-	 * @var array
-	 */
 	protected $objects;
 
 	/**
@@ -71,7 +61,6 @@ class Core {
 		$this->Slug = $Slug;
 		$this->set_controllers_path();
 		$this->set_views_path();
-		$this->set_users();
 		$this->set_objects();
 		$this->set_actions();
 	}
@@ -123,80 +112,72 @@ class Core {
 	 * Generate a hash
 	 * @return string
 	 */
-	public function generate_hash() {
-		$unique_id = uniqid(rand(), TRUE);
+	public function generate_hash($string_to_hash = '') {
+		if (strlen($string_to_hash) > 0) {
+			$unique_id = $string_to_hash;
+		} else {
+			$unique_id = uniqid(rand(), TRUE);
+		}
 		return hash('sha512', $unique_id);
 	}
 
 	/**
-	 * Set users array
-	 * @param array $users
-	 */
-	public function set_users($users = array()) {
-		if (count($users) > 0) {
-			$this->users = $users;
-		} else {
-			$default = array(
-				'USER', 'EDITOR', 'ADMIN'
-			);
-			$this->users = $default;
-		}
-		$this->set_default_user('USER');
-	}
-
-	/**
-	 * Set default user
-	 * @param string $user
-	 */
-	public function set_default_user($user) {
-		if (strlen($user) > 0) {
-			$this->default_user = $user;
-		}
-	}
-
-	/**
-	 * Get default user
-	 * @return string
-	 */
-	public function get_default_user() {
-		return $this->default_user;
-	}
-
-	/**
-	 * Get current user or set defaul
-	 * @return string
-	 */
-	public function get_current_user() {
-		$default = $this->get_default_user();
-		return $this->input('u', $this->hash_user($default));
-	}
-
-	/**
 	 * Generate hash user
-	 * @param string $user
+	 * @param string $string_to_hash
 	 * @return string | boolean
 	 */
-	public function hash_user($user = '') {
-		if (strlen($user) > 0 and $this->in_users($user)) {
-			$today = getdate();
-			$grain = $today['year'] . $today['mon'] . $today['mday'];
-			return hash('sha256', $user . $grain);
+	private function hash_user($string_to_hash) {
+		if (strlen($string_to_hash) > 0) {
+			return hash('sha256', $string_to_hash);
 		} else {
 			return FALSE;
 		}
 	}
 
-	public function check_perm($user = '') {
-		$hash_users = array(
-			$this->hash_user('EDITOR'),
-			$this->hash_user('ADMIN')
-		);
-		if (strlen($user) > 0) {
-			$current_user = $this->hash_user($user);
+	private function hash_perm($string_to_hash = '', $is_hash = TRUE) {
+		$today = getdate();
+		$salt = $today['year'] . $today['mon'] . $today['mday'];
+		if ($is_hash && strlen($string_to_hash) > 0) {
+			$hash = $string_to_hash;
 		} else {
-			$current_user = $this->get_current_user();
+			$server = $this->get_array('SERVER');
+			var_dump($server);
+			$hash = $this->hash_user($server['PHP_AUTH_USER'] . $server['PHP_AUTH_PW']);
+			var_dump($hash, $server);
 		}
-		return in_array($current_user, $hash_users, TRUE);
+		return hash('sha256', $salt . $hash);
+	}
+
+	public function check_perm() {
+		$hash_users = array(
+			'f8f10cd9fb390151744495030901185a90f6bf971d50e36f539c8238549c780b',
+			'82a796db1a6fdf2fc3fcc01039006f80806f1460bb473ae5815921bd2cb50d28'
+		);
+		$hash_perms = array(
+			$this->hash_perm($hash_users[0]),
+			$this->hash_perm($hash_users[1])
+		);
+
+		$current_user_hash = $this->hash_perm('', FALSE);
+
+		var_dump($current_user_hash, $hash_users, $hash_perms);
+
+
+		return in_array($current_user_hash, $hash_perms, TRUE);
+		/*
+		  admin Adm@Marzec!2017
+		  editor Edi!Marzec@2017
+		  $hash_users = array(
+		  $this->hash_user('EDITOR'),
+		  $this->hash_user('ADMIN')
+		  );
+		  if (strlen($user) > 0) {
+		  $current_user = $this->hash_user($user);
+		  } else {
+		  $current_user = $this->get_current_user();
+		  }
+		  return in_array($current_user, $hash_users, TRUE);
+		 */
 	}
 
 	/**
@@ -396,10 +377,13 @@ class Core {
 				break;
 			case 'POST':
 				$return = filter_input_array(INPUT_POST);
+				break;
 			case 'COOKIE':
 				$return = filter_input_array(INPUT_COOKIE);
+				break;
 			case 'SERVER':
 				$return = filter_input_array(INPUT_SERVER);
+				break;
 			default:
 				$return = FALSE;
 				break;

@@ -10,10 +10,16 @@ define('BASEPATH', realpath(ADMINBASEPATH . '/../'));
 require_once BASEPATH . '/config/general.php';
 ob_start();
 
-if ($Core->check_perm('ADMIN')) {
+if ($Core->check_perm()) {
 
-	$hash_user = $Core->hash_user('ADMIN');
-	var_dump(BASEPATH, ADMINBASEPATH, $Core->get_current_user(), $hash_user);
+	//$up1 = 'adminAdm@Marzec!2017';
+	//$up2 = 'editorEdi!Marzec@2017';
+	//$hup1 = $Core->hash_user($up1);
+	//$hup2 = $Core->hash_user($up2);
+	//$server = $Core->get_array('SERVER');
+	//$hash_auth = $Core->generate_hash($server['PHP_AUTH_USER'] . $server['PHP_AUTH_PW']);
+
+	var_dump(BASEPATH, ADMINBASEPATH);
 
 
 	/*
