@@ -66,13 +66,16 @@
 				</div>
 			</div>
 		</footer><!-- /Footer -->
-		<?php
-		if (DEBUG_MODE) {
-			echo('<div id="vb-debug"><h3 id="vb-debug-title">DEBUG:</h3><div class="table-responsive in-vb-debug">');
-			var_dump($VBDebug->get_all());
-			echo('</div></div>');
-		}
-		?>
+		<?php if ($debug): ?>
+			<div id="vb-debug">
+				<h3 id="vb-debug-title">DEBUG:</h3>
+				<div class="table-responsive in-vb-debug">
+					<?php
+					var_dump($debug);
+					?>
+				</div>
+			</div>
+		<?php endif; ?>
 		<!-- JavaScript -->
 		<script type="text/javascript">
 			var Text2Image = {

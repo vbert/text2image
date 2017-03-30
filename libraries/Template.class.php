@@ -65,6 +65,7 @@ class Template {
 	 */
 	public function load($tpl_name, $vars = array(), $return = FALSE) {
 		$tpl = $this->path . $tpl_name;
+
 		if (file_exists($tpl)) {
 			foreach ($vars as $key => $value) {
 				$$key = $value;

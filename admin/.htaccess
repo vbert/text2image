@@ -1,7 +1,7 @@
-AuthType Basic
-AuthName "Panel administracyjny. Podaj haslo."
-AuthBasicProvider file
-AuthUserFile /Users/vbert/Sites/etc/apppasswords
-Require valid-user
+#AuthType Basic
+#AuthName "Panel administracyjny. Podaj haslo."
+#AuthBasicProvider file
+#AuthUserFile /var/www/etc/apppasswords
+#Require valid-user
 
 Options -Indexes

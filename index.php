@@ -9,7 +9,6 @@ define('BASEPATH', dirname(__FILE__));
 require_once 'config/general.php';
 ob_start();
 
-$user = $Core->get_current_user();
 $object = $Core->get_current_object();
 $action = $Core->get_current_action();
 
@@ -24,7 +23,6 @@ if ($Core->in_objects($object) && $Core->in_actions($action)) {
 
 // For debug
 $vars = array(
-	'USER' => $user,
 	'OBJECT' => $object,
 	'ACTION' => $action,
 	'CONTROLLER' => $controller_name
@@ -38,6 +36,10 @@ if (DEBUG_MODE) {
 	$VBDebug->add('POST', $_POST);
 	$VBDebug->add('SESSION', $_SESSION);
 	$VBDebug->add('CUSTOMVARS', $vars);
+
+	$debug = $VBDebug->get_all();
+} else {
+	$debug = FALSE;
 }
 
 include $Core->get_controllers_dir() . $controller_name;

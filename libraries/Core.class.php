@@ -20,6 +20,11 @@ class Core {
 	protected $Slug;
 
 	/**
+	 * @var object Instance Session class
+	 */
+	protected $Session;
+
+	/**
 	 * @var string
 	 */
 	protected $controllers_path;
@@ -57,8 +62,9 @@ class Core {
 	/**
 	 * Constructor
 	 */
-	public function __construct($Slug) {
+	public function __construct($Slug, $Session) {
 		$this->Slug = $Slug;
+		$this->Session = $Session;
 		$this->set_controllers_path();
 		$this->set_views_path();
 		$this->set_objects();
@@ -85,12 +91,12 @@ class Core {
 	 * @return string
 	 */
 	public function build_admin_uri($parameters = array()) {
-		$hash_user = $this->get_current_user();
-		$query_string = 'u=' . $hash_user;
 		if (count($parameters) > 0) {
-			$query_string .= implode('&', $parameters);
+			$query_string = implode('&', $parameters);
+			return ADMINBASEURI . '?' . $query_string;
+		} else {
+			return ADMINBASEURI;
 		}
-		return ADMINBASEURI . '?' . $query_string;
 	}
 
 	/**
@@ -122,71 +128,72 @@ class Core {
 	}
 
 	/**
-	 * Generate hash user
-	 * @param string $string_to_hash
+	 * Generate hash password and user
+	 * @param string $user
+	 * @param string $password
 	 * @return string | boolean
 	 */
-	private function hash_user($string_to_hash) {
-		if (strlen($string_to_hash) > 0) {
-			return hash('sha256', $string_to_hash);
+	private function _hash_user($user, $password) {
+		if (strlen($user) > 0 && strlen($password) > 0) {
+			$options = array(
+				'cost' => 7,
+				'salt' => $user . $password . $user,
+			);
+			$hash = password_hash($password, PASSWORD_DEFAULT, $options);
+			return $hash;
 		} else {
 			return FALSE;
 		}
 	}
 
-	private function hash_perm($string_to_hash = '', $is_hash = TRUE) {
+	private function _lookup_user($user, $hash_perm) {
+		$found = FALSE;
+		$handle = fopen(DB_USERS, 'r');
+		flock($handle, LOCK_SH);
+		while ($row = fgetcsv($handle, 512, ';')) {
+			$_hash = $this->_hash_perm($row[1]);
+			if ($row[0] === $user && $_hash === $hash_perm) {
+				$found = TRUE;
+				break;
+			}
+		}
+		flock($handle, LOCK_UN);
+		fclose($handle);
+		return $found;
+	}
+
+	private function _hash_perm($string_to_hash) {
 		$today = getdate();
 		$salt = $today['year'] . $today['mon'] . $today['mday'];
-		if ($is_hash && strlen($string_to_hash) > 0) {
-			$hash = $string_to_hash;
-		} else {
-			$server = $this->get_array('SERVER');
-			var_dump($server);
-			$hash = $this->hash_user($server['PHP_AUTH_USER'] . $server['PHP_AUTH_PW']);
-			var_dump($hash, $server);
-		}
-		return hash('sha256', $salt . $hash);
+		$options = array(
+			'cost' => 7,
+			'salt' => $salt,
+		);
+		$hash = password_hash($string_to_hash, PASSWORD_DEFAULT, $options);
+		return $hash;
 	}
 
 	public function check_perm() {
-		$hash_users = array(
-			'f8f10cd9fb390151744495030901185a90f6bf971d50e36f539c8238549c780b',
-			'82a796db1a6fdf2fc3fcc01039006f80806f1460bb473ae5815921bd2cb50d28'
-		);
-		$hash_perms = array(
-			$this->hash_perm($hash_users[0]),
-			$this->hash_perm($hash_users[1])
-		);
-
-		$current_user_hash = $this->hash_perm('', FALSE);
-
-		var_dump($current_user_hash, $hash_users, $hash_perms);
-
-
-		return in_array($current_user_hash, $hash_perms, TRUE);
-		/*
-		  admin Adm@Marzec!2017
-		  editor Edi!Marzec@2017
-		  $hash_users = array(
-		  $this->hash_user('EDITOR'),
-		  $this->hash_user('ADMIN')
-		  );
-		  if (strlen($user) > 0) {
-		  $current_user = $this->hash_user($user);
-		  } else {
-		  $current_user = $this->get_current_user();
-		  }
-		  return in_array($current_user, $hash_users, TRUE);
-		 */
-	}
-
-	/**
-	 * Check whether the given user is in the array
-	 * @param string $user
-	 * @return boolean
-	 */
-	public function in_users($user) {
-		return in_array($user, $this->users, TRUE);
+		$perm = FALSE;
+		$session_user = $this->Session->get('user');
+		if ($session_user) {
+			$_user = $session_user['name'];
+			$_hash = $session_user['hash'];
+			if ($this->_lookup_user($_user, $_hash)) {
+				$user = array(
+					'name' => $_user,
+					'hash' => $_hash,
+					'timestamp' => time()
+				);
+				$this->Session->set('user', $user);
+				$perm = TRUE;
+			} else {
+				$perm = FALSE;
+			}
+		} else {
+			$perm = FALSE;
+		}
+		return $perm;
 	}
 
 	/**

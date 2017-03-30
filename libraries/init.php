@@ -21,6 +21,6 @@ require LIBPATH . 'Project.class.php';
 $IP = new \VbertTools\IP_Address();
 $Session = new \VbertTools\Session();
 $Slug = new \VbertTools\Slug();
-$Core = new \VbertTools\Core($Slug);
+$Core = new \VbertTools\Core($Slug, $Session);
 $Tpl = new \VbertTools\Template();
 $Project = new \VbertTools\Project();

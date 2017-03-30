@@ -44,6 +44,7 @@ define('ALERT_DANGER', 'alert alert-danger');
 
 define('SIGN_DOT', '.');
 
+define('DBPATH', implode(DIRECTORY_SEPARATOR, array(BASEPATH, 'db', '')));
 define('LIBPATH', implode(DIRECTORY_SEPARATOR, array(BASEPATH, 'libraries', '')));
 define('VIEWSPATH', implode(DIRECTORY_SEPARATOR, array(BASEPATH, 'views', '')));
 define('CONTROLLERSPATH', implode(DIRECTORY_SEPARATOR, array(BASEPATH, 'controllers', '')));
@@ -59,6 +60,7 @@ define('PROJECT_EXAMPLE_FILE', 'project.jpg');
 define('PROJECT_TEMPLATE_FILE', 'template.jpg');
 define('PROJECT_THUMBNAIL_FILE', 'thumbnail.jpg');
 
+define('DB_USERS', DBPATH . 'appusers');
 define('PROJECTS_USERS_URI', PROJECTS_URI . '%s/users/');
 define('PROJECT_OUTPUT_FILE', 'out.jpg');
 
