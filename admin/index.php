@@ -55,7 +55,9 @@ if ($Core->check_perm()) {
 	  include $Core->get_controllers_dir() . $controller_name;
 	 */
 } else {
-	exit('Nie posiadasz uprawnień do oglądania tej strony.');
+	//exit('Nie posiadasz uprawnień do oglądania tej strony.');
+	$uri_login = $Core->build_uri(array('o=AUTH', 'a=LOGIN'));
+	header('Location: ' . $uri_login);
 }
 
 ob_end_flush();

@@ -11,8 +11,6 @@ if (!defined('BASEPATH')) {
  * @copyright (c) 2017
  */
 $user_config = array(
-	// Full web address of the application with '/text2image/' at the end
-	'baseuri' => '',
 	// Application name, default 'Text2Image'
 	'app_name' => 'Text2Image',
 	// Short description for head title, default 'Edytor tekstu na zdjęciu'

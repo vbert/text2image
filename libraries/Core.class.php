@@ -77,12 +77,7 @@ class Core {
 	 * @return string
 	 */
 	public function build_uri($parameters = array()) {
-		if (count($parameters) > 0) {
-			$query_string = implode('&', $parameters);
-			return BASEURI . '?' . $query_string;
-		} else {
-			return BASEURI;
-		}
+		return $this->_uri(BASEURI, $parameters);
 	}
 
 	/**
@@ -91,11 +86,15 @@ class Core {
 	 * @return string
 	 */
 	public function build_admin_uri($parameters = array()) {
+		return $this->_uri(ADMINBASEURI, $parameters);
+	}
+
+	private function _uri($base_uri, $parameters = array()) {
 		if (count($parameters) > 0) {
 			$query_string = implode('&', $parameters);
-			return ADMINBASEURI . '?' . $query_string;
+			return $base_uri . '?' . $query_string;
 		} else {
-			return ADMINBASEURI;
+			return $base_uri;
 		}
 	}
 
@@ -205,7 +204,7 @@ class Core {
 			$this->objects = $objects;
 		} else {
 			$default = array(
-				'PROJECT', 'USER_PROJECT'
+				'AUTH', 'PROJECT', 'USER_PROJECT'
 			);
 			$this->objects = $default;
 		}
@@ -257,6 +256,7 @@ class Core {
 			$this->actions = $actions;
 		} else {
 			$default = array(
+				'LOGIN', 'LOGOUT', 'DO_LOGIN',
 				'LIST', 'DETAIL', 'ADD', 'EDIT'
 			);
 			$this->actions = $default;
