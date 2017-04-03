@@ -14,7 +14,8 @@
 			<h2><?= APP_NAME; ?></h2>
 		</hgroup><!-- /Header -->
 		<!-- Form -->
-		<form action="">
+		<form action="<?= $uri_do_login; ?>">
+			<input type="hidden" name="hash" value="<?= $hash; ?>">
 			<div class="group">
 				<input type="text" name="login" required><span class="highlight"></span><span class="bar"></span>
 				<label>Login</label>
@@ -23,7 +24,7 @@
 				<input type="password" name="password" required><span class="highlight"></span><span class="bar"></span>
 				<label>Hasło</label>
 			</div>
-			<button type="button" class="button buttonBlue">Zaloguj
+			<button type="submit" class="button buttonBlue">Zaloguj
 				<div class="ripples buttonRipples"><span class="ripplesCircle"></span></div>
 			</button>
 		</form><!-- /Form -->

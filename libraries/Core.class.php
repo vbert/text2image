@@ -42,12 +42,27 @@ class Core {
 	/**
 	 * @var array
 	 */
+	protected $default_objects = array(
+		'AUTH', 'PROJECT', 'USER_PROJECT'
+	);
+
+	/**
+	 * @var array
+	 */
 	protected $objects;
 
 	/**
 	 * @var string
 	 */
 	protected $default_object;
+
+	/**
+	 * @var array
+	 */
+	protected $default_actions = array(
+		'LOGIN', 'LOGOUT', 'DO_LOGIN',
+		'LIST', 'DETAIL', 'ADD', 'EDIT'
+	);
 
 	/**
 	 * @var array
@@ -203,10 +218,7 @@ class Core {
 		if (count($objects) > 0) {
 			$this->objects = $objects;
 		} else {
-			$default = array(
-				'AUTH', 'PROJECT', 'USER_PROJECT'
-			);
-			$this->objects = $default;
+			$this->objects = $this->default_objects;
 		}
 		$this->set_default_object('PROJECT');
 	}
@@ -255,11 +267,7 @@ class Core {
 		if (count($actions) > 0) {
 			$this->actions = $actions;
 		} else {
-			$default = array(
-				'LOGIN', 'LOGOUT', 'DO_LOGIN',
-				'LIST', 'DETAIL', 'ADD', 'EDIT'
-			);
-			$this->actions = $default;
+			$this->actions = $this->default_actions;
 		}
 		$this->set_default_action('LIST');
 	}
