@@ -13,6 +13,6 @@ $data = array(
 	'content' => $content
 );
 
-$template = 'base.php';
+$template = 'inc/base.php';
 
 $Tpl->load($template, $data);
