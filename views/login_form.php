@@ -14,7 +14,7 @@
 			<h2><?= APP_NAME; ?></h2>
 		</hgroup><!-- /Header -->
 		<!-- Form -->
-		<form action="<?= $uri_do_login; ?>">
+		<form id="LoginForm" action="<?= $uri_do_login; ?>" method="POST">
 			<input type="hidden" name="hash" value="<?= $hash; ?>">
 			<div class="group">
 				<input type="text" name="login" required><span class="highlight"></span><span class="bar"></span>

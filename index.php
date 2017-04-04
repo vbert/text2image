@@ -19,8 +19,6 @@ if ($Core->in_objects($object) && $Core->in_actions($action)) {
 	header('Location: ' . URI_HOME);
 }
 
-
-
 // For debug
 $vars = array(
 	'OBJECT' => $object,

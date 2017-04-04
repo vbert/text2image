@@ -43,7 +43,7 @@ class Core {
 	 * @var array
 	 */
 	protected $default_objects = array(
-		'AUTH', 'PROJECT', 'USER_PROJECT'
+		'AUTH', 'USER', 'PROJECT', 'USER_PROJECT'
 	);
 
 	/**
@@ -61,7 +61,7 @@ class Core {
 	 */
 	protected $default_actions = array(
 		'LOGIN', 'LOGOUT', 'DO_LOGIN',
-		'LIST', 'DETAIL', 'ADD', 'EDIT'
+		'LIST', 'DETAIL', 'ADD', 'EDIT', 'DELETE'
 	);
 
 	/**
@@ -77,9 +77,9 @@ class Core {
 	/**
 	 * Constructor
 	 */
-	public function __construct($Slug, $Session) {
-		$this->Slug = $Slug;
-		$this->Session = $Session;
+	public function __construct() {
+		$this->Slug = new Slug();
+		$this->Session = new Session();
 		$this->set_controllers_path();
 		$this->set_views_path();
 		$this->set_objects();
@@ -147,7 +147,7 @@ class Core {
 	 * @param string $password
 	 * @return string | boolean
 	 */
-	private function _hash_user($user, $password) {
+	public function hash_password($user, $password) {
 		if (strlen($user) > 0 && strlen($password) > 0) {
 			$options = array(
 				'cost' => 7,
@@ -158,22 +158,6 @@ class Core {
 		} else {
 			return FALSE;
 		}
-	}
-
-	private function _lookup_user($user, $hash_perm) {
-		$found = FALSE;
-		$handle = fopen(DB_USERS, 'r');
-		flock($handle, LOCK_SH);
-		while ($row = fgetcsv($handle, 512, ';')) {
-			$_hash = $this->_hash_perm($row[1]);
-			if ($row[0] === $user && $_hash === $hash_perm) {
-				$found = TRUE;
-				break;
-			}
-		}
-		flock($handle, LOCK_UN);
-		fclose($handle);
-		return $found;
 	}
 
 	private function _hash_perm($string_to_hash) {
@@ -188,25 +172,28 @@ class Core {
 	}
 
 	public function check_perm() {
-		$perm = FALSE;
-		$session_user = $this->Session->get('user');
-		if ($session_user) {
-			$_user = $session_user['name'];
-			$_hash = $session_user['hash'];
-			if ($this->_lookup_user($_user, $_hash)) {
-				$user = array(
-					'name' => $_user,
-					'hash' => $_hash,
-					'timestamp' => time()
-				);
-				$this->Session->set('user', $user);
-				$perm = TRUE;
-			} else {
-				$perm = FALSE;
-			}
-		} else {
-			$perm = FALSE;
-		}
+		$perm = TRUE;
+		/*
+		  $perm = FALSE;
+		  $session_user = $this->Session->get('user');
+		  if ($session_user) {
+		  $_user = $session_user['name'];
+		  $_hash = $session_user['hash'];
+		  if ($this->_lookup_user($_user, $_hash)) {
+		  $user = array(
+		  'name' => $_user,
+		  'hash' => $_hash,
+		  'timestamp' => time()
+		  );
+		  $this->Session->set('user', $user);
+		  $perm = TRUE;
+		  } else {
+		  $perm = FALSE;
+		  }
+		  } else {
+		  $perm = FALSE;
+		  }
+		 */
 		return $perm;
 	}
 
@@ -320,7 +307,10 @@ class Core {
 	 * Get path to controllers files
 	 * @return string
 	 */
-	public function get_controllers_dir() {
+	public function get_controllers_dir($subdir = '') {
+		if (strlen($subdir) > 0) {
+			$this->set_controllers_path(CONTROLLERSPATH . $subdir . DIRECTORY_SEPARATOR);
+		}
 		return $this->controllers_path;
 	}
 

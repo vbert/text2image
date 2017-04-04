@@ -11,16 +11,16 @@ if (DEBUG_MODE) {
 	$VBDebug = NULL;
 }
 
-require LIBPATH . 'IP_Address.class.php';
-require LIBPATH . 'Session.class.php';
-require LIBPATH . 'Slug.class.php';
-require LIBPATH . 'Core.class.php';
-require LIBPATH . 'Template.class.php';
-require LIBPATH . 'Project.class.php';
+require_once LIBPATH . 'IP_Address.class.php';
+require_once LIBPATH . 'Session.class.php';
+require_once LIBPATH . 'Slug.class.php';
+require_once LIBPATH . 'Core.class.php';
+require_once LIBPATH . 'Template.class.php';
+require_once LIBPATH . 'Project.class.php';
 
 $IP = new \VbertTools\IP_Address();
 $Session = new \VbertTools\Session();
 $Slug = new \VbertTools\Slug();
-$Core = new \VbertTools\Core($Slug, $Session);
+$Core = new \VbertTools\Core();
 $Tpl = new \VbertTools\Template();
 $Project = new \VbertTools\Project();

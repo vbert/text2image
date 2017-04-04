@@ -3,13 +3,24 @@
  * @copyright (c) 2017
  */
 $(window, document, undefined).ready(function() {
+
+	function refresh_inputs() {
+		$('input').each(function() {
+			var $this = $(this);
+			if ($this.val()) {
+				$this.addClass('used');
+			} else {
+				$this.removeClass('used');
+			}
+		});
+	}
+
 	$('input').blur(function() {
-		var $this = $(this);
-		if ($this.val()) {
-			$this.addClass('used');
-		} else {
-			$this.removeClass('used');
-		}
+		refresh_inputs();
+	});
+
+	$('input').change(function() {
+		refresh_inputs();
 	});
 
 	var $ripples = $('.ripples');

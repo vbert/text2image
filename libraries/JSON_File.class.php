@@ -20,11 +20,19 @@ class JSON_File {
 	protected $file_name;
 
 	/**
+	 * @var string Default file name
+	 */
+	private $default_file_name = 'meta.json';
+
+	/**
 	 * Constructor
 	 */
-	public function __construct() {
-		$default_file_name = 'meta.json';
-		$this->set_file_name($default_file_name);
+	public function __construct($file_name = '') {
+		if (strlen($file_name) > 0) {
+			$this->set_file_name($file_name);
+		} else {
+			$this->set_file_name($this->default_file_name);
+		}
 	}
 
 	/**
