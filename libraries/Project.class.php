@@ -6,8 +6,6 @@ if (!defined('BASEPATH')) {
 	exit('Bezpośredni dostęp do skryptu jest niedozwolony!');
 }
 
-require LIBPATH . 'JSON_File.class.php';
-
 /**
  * Project management
  *

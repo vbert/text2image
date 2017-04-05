@@ -12,6 +12,7 @@ if (DEBUG_MODE) {
 }
 
 require_once LIBPATH . 'IP_Address.class.php';
+require_once LIBPATH . 'JSON_File.class.php';
 require_once LIBPATH . 'Session.class.php';
 require_once LIBPATH . 'Slug.class.php';
 require_once LIBPATH . 'Core.class.php';

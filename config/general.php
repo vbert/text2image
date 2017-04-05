@@ -32,8 +32,10 @@ if (LOCAL_SERV) {
 define('APP_NAME', $user_config['app_name']);
 define('DEFAULT_HEAD_TITLE', $user_config['head_title']);
 define('URI_HOME', BASEURI);
+define('URI_LOGIN', BASEURI . '?o=AUTH&a=LOGIN');
+define('URI_LOGOUT', BASEURI . '?o=AUTH&a=LOGOUT');
 define('ADMINBASEURI', BASEURI . 'admin/');
-define('ADMIN_URI_HOME', ADMINBASEURI);
+define('URI_ADMIN', ADMINBASEURI);
 
 $today = getdate();
 define('CURRENT_YEAR', $today['year']);
@@ -46,8 +48,8 @@ define('ALERT_DANGER', 'alert alert-danger');
 define('SIGN_DOT', '.');
 
 define('DBPATH', implode(DIRECTORY_SEPARATOR, array(BASEPATH, 'db', '')));
-define('DBUSERS', DBPATH . 'appusers.json');
-define('DBPROJECTS', DBPATH . 'projects.json');
+define('DBUSERS', 'appusers.json');
+define('DBPROJECTS', 'projects.json');
 define('LIBPATH', implode(DIRECTORY_SEPARATOR, array(BASEPATH, 'libraries', '')));
 define('VIEWSPATH', implode(DIRECTORY_SEPARATOR, array(BASEPATH, 'views', '')));
 define('CONTROLLERSPATH', implode(DIRECTORY_SEPARATOR, array(BASEPATH, 'controllers', '')));

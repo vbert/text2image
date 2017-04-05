@@ -15,4 +15,6 @@ $user_config = array(
 	'app_name' => 'Text2Image',
 	// Short description for head title, default 'Edytor tekstu na zdjęciu'
 	'head_title' => 'Edytor tekstu na zdjęciu',
+	//
+	'baseuri' => 'http://.../text2image/'
 );

@@ -8,10 +8,8 @@
 define('ADMINBASEPATH', dirname(__FILE__));
 define('BASEPATH', realpath(ADMINBASEPATH . '/../'));
 require_once BASEPATH . '/config/general.php';
-ob_start();
 
 if ($Core->check_perm()) {
-
 	$object = $Core->get_current_object();
 	$action = $Core->get_current_action();
 
@@ -22,14 +20,13 @@ if ($Core->check_perm()) {
 	}
 
 	// For debug
-	$vars = array(
-		'OBJECT' => $object,
-		'ACTION' => $action,
-		'CONTROLLER' => $controller_name
-	);
-
-// For debug
 	if (DEBUG_MODE) {
+		$vars = array(
+			'OBJECT' => $object,
+			'ACTION' => $action,
+			'CONTROLLER' => $controller_name
+		);
+
 		$VBDebug->clear();
 		$VBDebug->add('BASEPATH', BASEPATH);
 		$VBDebug->add('GET', $_GET);
@@ -55,5 +52,3 @@ if ($Core->check_perm()) {
 	$uri_login = $Core->build_uri(array('o=AUTH', 'a=LOGIN'));
 	header('Location: ' . $uri_login);
 }
-
-ob_end_flush();
