@@ -16,5 +16,6 @@ $user_config = array(
 	// Short description for head title, default 'Edytor tekstu na zdjęciu'
 	'head_title' => 'Edytor tekstu na zdjęciu',
 	//
+	'protocol' => 'http',
 	'baseuri' => 'http://.../text2image/'
 );

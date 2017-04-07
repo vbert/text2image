@@ -4,32 +4,73 @@ if (!defined('BASEPATH')) {
 	exit('Bezpośredni dostęp do skryptu jest niedozwolony!');
 }
 
-$uri_admin = URI_ADMIN;
-$uri_login = URI_LOGIN;
-
 $post = $Core->get_array('POST');
+$next = $post['next'];
 
-if (array_key_exists('login', $post) && array_key_exists('password', $post) && array_key_exists('hash', $post)) {
+if (array_key_exists('login', $post) && array_key_exists('password', $post) && array_key_exists('form_hash', $post)) {
 	$login = $post['login'];
 	$password = $post['password'];
-	$hash = $post['hash'];
-	$session_hash = $Session->get('hash');
+	$form_hash = $post['form_hash'];
+	$session_form_hash = $Session->get('form_hash');
 
-	$DBUsers = new \VbertTools\JSON_File(DBUSERS);
-	$users = $DBUsers->get(DBPATH)[0];
+	if ($form_hash === $session_form_hash) {
+		$DBUsers = new \VbertTools\JSON_File(DBUSERS);
+		$Users = $DBUsers->get(DBPATH, TRUE)[0];
 
-	var_dump($users);
+		if (array_key_exists($login, $Users)) {
+			$user = $Users[$login];
+			$hash_password = $Core->hash_password($login, $password);
 
-	$content = '';
+			if ($hash_password === $user['password']) {
 
-	$data = array(
-		'debug' => $debug,
-		'content' => $content
-	);
+				$session_user = array(
+					'timestamp' => time(),
+					'name' => $login,
+					'hash' => $Core->hash_user_to_session($hash_password)
+				);
 
-	$template = 'inc/base.php';
+				$Session->set('user', $session_user);
+				$Session->set('loggedin', TRUE);
+				$Session->del('form_hash');
+				$Session->del('form_hash_time');
 
-	$Tpl->load($template, $data);
+				if ($next) {
+					header('Location: ' . $next);
+				} else {
+					header('Location: ' . URI_ADMIN);
+				}
+			} else {
+				$alert = array(
+					'text' => 'Nieprawidłowe hasło!',
+					'type' => ALERT_DANGER,
+					'title' => 'Nieudana próba logowania'
+				);
+				$Session->set('alert', $alert);
+				$n = ($next) ? '&next=' . $next : '';
+				header('Location: ' . URI_LOGIN . $n);
+			}
+		} else {
+			$alert = array(
+				'text' => 'Nieprawidłowy login!',
+				'type' => ALERT_DANGER,
+				'title' => 'Nieudana próba logowania'
+			);
+			$Session->set('alert', $alert);
+			$n = ($next) ? '&next=' . $next : '';
+			header('Location: ' . URI_LOGIN . $n);
+		}
+	} else {
+		$alert = array(
+			'text' => 'Nieprawidłowa suma kontrolna formularza!',
+			'type' => ALERT_DANGER,
+			'title' => 'Nieudana próba logowania'
+		);
+		$Session->set('alert', $alert);
+		$n = ($next) ? '&next=' . $next : '';
+		header('Location: ' . URI_LOGIN . $n);
+	}
 } else {
-	header('Location: ' . URI_LOGIN);
+	$n = ($next) ? '&next=' . $next : '';
+	header('Location: ' . URI_LOGIN . $n);
 }
+

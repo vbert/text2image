@@ -21,10 +21,12 @@ if (filter_input(INPUT_SERVER, 'HTTP_HOST') === 'localhost') {
 if (LOCAL_SERV) {
 	error_reporting(E_ALL & ~E_DEPRECATED);
 	date_default_timezone_set('Europe/Warsaw');
+	define('PROTOCOL', 'http://');
 	define('BASEURI', 'http://localhost/text2image/');
 	define('DEBUG_MODE', TRUE);
 } else {
 	error_reporting(0);
+	define('PROTOCOL', $user_config['protocol'] . '://');
 	define('BASEURI', $user_config['baseuri']);
 	define('DEBUG_MODE', FALSE);
 }

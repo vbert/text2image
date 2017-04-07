@@ -160,12 +160,16 @@ class Core {
 		}
 	}
 
+	public function hash_user_to_session($hash_password) {
+		return $this->_hash_perm($hash_password);
+	}
+
 	private function _hash_perm($string_to_hash) {
 		$today = getdate();
 		$salt = $today['year'] . $today['mon'] . $today['mday'];
 		$options = array(
 			'cost' => 7,
-			'salt' => $salt,
+			'salt' => $salt . $salt . $salt . $salt,
 		);
 		$hash = password_hash($string_to_hash, PASSWORD_DEFAULT, $options);
 		return $hash;
@@ -173,27 +177,18 @@ class Core {
 
 	public function check_perm() {
 		$perm = FALSE;
-		/*
-		  $perm = FALSE;
-		  $session_user = $this->Session->get('user');
-		  if ($session_user) {
-		  $_user = $session_user['name'];
-		  $_hash = $session_user['hash'];
-		  if ($this->_lookup_user($_user, $_hash)) {
-		  $user = array(
-		  'name' => $_user,
-		  'hash' => $_hash,
-		  'timestamp' => time()
-		  );
-		  $this->Session->set('user', $user);
-		  $perm = TRUE;
-		  } else {
-		  $perm = FALSE;
-		  }
-		  } else {
-		  $perm = FALSE;
-		  }
-		 */
+
+		$DBUsers = new \VbertTools\JSON_File(DBUSERS);
+		$Users = $DBUsers->get(DBPATH, TRUE)[0];
+		$session_user = $this->Session->get('user');
+
+		if (array_key_exists($session_user['name'], $Users)) {
+			$user = $Users[$session_user['name']];
+			if ($this->hash_user_to_session($user['password']) === $session_user['hash']) {
+				$perm = TRUE;
+			}
+		}
+
 		return $perm;
 	}
 
@@ -394,6 +389,45 @@ class Core {
 				break;
 		}
 		return $return;
+	}
+
+	/**
+	 * Print alert on page
+	 * @param array | string $alert_text
+	 * @param string $alert_type
+	 * @param string $alert_title
+	 * @return string | boolean
+	 */
+	public function alert($alert_text, $alert_type = ALERT_SUCCESS, $alert_title = FALSE) {
+		if (is_array($alert_text)) {
+			$a = $alert_text;
+			return $this->set_alert($a['text'], $a['type'], $a['title']);
+		} else {
+			if (strlen($alert_text) > 0) {
+				return $this->set_alert($alert_text, $alert_type, $alert_title);
+			} else {
+				return FALSE;
+			}
+		}
+	}
+
+	/**
+	 * Set alert widget
+	 * @param string $alert_text
+	 * @param string $alert_type
+	 * @param string $alert_title
+	 * @return string
+	 */
+	private function set_alert($alert_text, $alert_type, $alert_title) {
+		if ($alert_title) {
+			$title = sprintf('<h4>%s</h4>', $alert_title);
+		} else {
+			$title = '';
+		}
+		$text = $alert_text;
+		$type = $alert_type;
+		$format = '<div class="%s" role="alert">%s<p>%s</p></div>';
+		return sprintf($format, $type, $title, $text);
 	}
 
 	/**

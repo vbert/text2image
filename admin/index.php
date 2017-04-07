@@ -49,6 +49,7 @@ if ($Core->check_perm()) {
 	//$hash_auth = $Core->generate_hash($server['PHP_AUTH_USER'] . $server['PHP_AUTH_PW']);
 } else {
 	$Server = $Core->get_array('SERVER');
-	$uri_next = URI_LOGIN . '&next=' . $Server['REQUEST_URI'];
+	$next = PROTOCOL . $Server['SERVER_NAME'] . $Server['REQUEST_URI'];
+	$uri_next = URI_LOGIN . '&next=' . $next;
 	header('Location: ' . $uri_next);
 }

@@ -14,9 +14,11 @@
 			<h1>Logowanie do systemu</h1>
 			<h2><?= APP_NAME; ?></h2>
 		</hgroup><!-- /Header -->
+		<!-- Alert -->
+		<?php if ($alert): ?><?= $alert; ?><?php endif; ?><!-- /Alert -->
 		<!-- Form -->
-		<form id="LoginForm" action="<?= $uri_do_login; ?>" method="POST">
-			<input type="hidden" name="hash" value="<?= $hash; ?>">
+		<form id="LoginForm" action="<?= $form_action; ?>" method="POST">
+			<input type="hidden" name="form_hash" value="<?= $form_hash; ?>">
 			<input type="hidden" name="next" value="<?= $next; ?>">
 			<div class="group">
 				<input type="text" name="login" data-validation="length alphanumeric" data-validation-length="min5">

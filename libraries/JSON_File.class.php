@@ -60,9 +60,9 @@ class JSON_File {
 	 * @param string $path Path to json file
 	 * @return array
 	 */
-	public function get($path) {
+	public function get($path, $assoc = FALSE) {
 		$json = $this->read($path);
-		$data = json_decode($json);
+		$data = json_decode($json, $assoc);
 		return $data;
 	}
 
