@@ -40,6 +40,12 @@ h2 {
 	color: #444;
 }
 
+.form-error {
+	margin: 5px;
+	font-size: 94%;
+	line-height: 130%;
+}
+
 @media (max-width: 767px) {
 	h1 {
 		font-size: 160%;
@@ -47,6 +53,12 @@ h2 {
 
 	h2 {
 		font-size: 120%;
+	}
+
+	.form-error {
+		margin: 1px;
+		font-size: 83%;
+		line-height: 120%;
 	}
 }
 

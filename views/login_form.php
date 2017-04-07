@@ -5,8 +5,8 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<title><?= APP_NAME; ?> - Formularz logowania </title>
-		<link href="<?= BASEURI; ?>assets/css/login-form.css" rel="stylesheet">
 		<link href="<?= BASEURI; ?>assets/js/form-validator/theme-default.min.css" rel="stylesheet">
+		<link href="<?= BASEURI; ?>assets/css/login-form.css" rel="stylesheet">
 	</head>
 	<body>
 		<!-- Header -->
@@ -42,9 +42,9 @@
 		<script src="<?= BASEURI; ?>assets/js/login-form.min.js" type="text/javascript"></script>
 		<script src="<?= BASEURI; ?>assets/js/form-validator/jquery.form-validator.min.js" type="text/javascript"></script>
 		<script type="text/javascript">
-				$.validate({
-					lang: 'pl'
-				});
+			$.validate({
+				lang: 'pl'
+			});
 		</script>
 	</body>
 </html>
