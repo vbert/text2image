@@ -19,6 +19,8 @@ if ($Core->check_perm()) {
 		header('Location: ' . ADMIN_URI_HOME);
 	}
 
+
+
 	// For debug
 	if (DEBUG_MODE) {
 		$vars = array(

@@ -46,8 +46,7 @@ if (array_key_exists('login', $post) && array_key_exists('password', $post) && a
 					'title' => 'Nieudana próba logowania'
 				);
 				$Session->set('alert', $alert);
-				$n = ($next) ? '&next=' . $next : '';
-				header('Location: ' . URI_LOGIN . $n);
+				$Core->show_login_form($next);
 			}
 		} else {
 			$alert = array(
@@ -56,8 +55,7 @@ if (array_key_exists('login', $post) && array_key_exists('password', $post) && a
 				'title' => 'Nieudana próba logowania'
 			);
 			$Session->set('alert', $alert);
-			$n = ($next) ? '&next=' . $next : '';
-			header('Location: ' . URI_LOGIN . $n);
+			$Core->show_login_form($next);
 		}
 	} else {
 		$alert = array(
@@ -66,11 +64,9 @@ if (array_key_exists('login', $post) && array_key_exists('password', $post) && a
 			'title' => 'Nieudana próba logowania'
 		);
 		$Session->set('alert', $alert);
-		$n = ($next) ? '&next=' . $next : '';
-		header('Location: ' . URI_LOGIN . $n);
+		$Core->show_login_form($next);
 	}
 } else {
-	$n = ($next) ? '&next=' . $next : '';
-	header('Location: ' . URI_LOGIN . $n);
+	$Core->show_login_form($next);
 }
 

@@ -160,10 +160,20 @@ class Core {
 		}
 	}
 
+	/**
+	 * Make hash for session
+	 * @param string $hash_password
+	 * @return string
+	 */
 	public function hash_user_to_session($hash_password) {
 		return $this->_hash_perm($hash_password);
 	}
 
+	/**
+	 * Make hash for one day
+	 * @param string $string_to_hash
+	 * @return string
+	 */
 	private function _hash_perm($string_to_hash) {
 		$today = getdate();
 		$salt = $today['year'] . $today['mon'] . $today['mday'];
@@ -175,6 +185,10 @@ class Core {
 		return $hash;
 	}
 
+	/**
+	 * Check permissions
+	 * @return boolean
+	 */
 	public function check_perm() {
 		$perm = FALSE;
 
@@ -190,6 +204,30 @@ class Core {
 		}
 
 		return $perm;
+	}
+
+	/**
+	 * Show login form
+	 * @param string $next
+	 */
+	public function show_login_form($next = '') {
+		$this->Session->del('user');
+		$this->Session->set('loggedin', FALSE);
+		$n = ($next) ? '&next=' . $next : '';
+		header('Location: ' . URI_LOGIN . $n);
+	}
+
+	/**
+	 * Logout
+	 * @param string $next
+	 */
+	public function logout($next = '') {
+		$this->Session->forget();
+		if ($next) {
+			header('Location: ' . $next);
+		} else {
+			header('Location: ' . URI_HOME);
+		}
 	}
 
 	/**

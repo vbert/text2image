@@ -25,7 +25,8 @@
 					</div>
 					<div id="menubar-collapse" class="navbar-collapse collapse">
 						<ul class="nav navbar-nav navbar-right">
-							<li class="active"><a href="#">Lista projektów</a></li>
+							<li class="active"><a href="">Lista projektów</a></li>
+							<li><a href="<?= URI_LOGOUT; ?>">Wyloguj</a></li>
 							<!--
 							<li class="dropdown">
 								<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
@@ -78,9 +79,9 @@
 		<?php endif; ?>
 		<!-- JavaScript -->
 		<script type="text/javascript">
-			var Text2Image = {
-				baseuri: "<?= BASEURI; ?>"
-			};
+				var Text2Image = {
+					baseuri: "<?= BASEURI; ?>"
+				};
 		</script>
 		<script src="<?= BASEURI; ?>assets/js/jquery-3.1.1.min.js" type="text/javascript"></script>
 		<script src="<?= BASEURI; ?>assets/js/bootstrap.min.js" type="text/javascript"></script>

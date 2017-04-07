@@ -17,7 +17,9 @@ if ($Core->in_objects($object) && $Core->in_actions($action)) {
 		$Session->del('hash');
 		$Session->del('hash_time');
 	}
+	$uri_project_list = $Core->build_uri(array('o=PROJECT', 'a=LIST'));
 	$uri_admin = $Core->build_admin_uri();
+	$uri_logout = URI_LOGOUT;
 } else {
 	header('Location: ' . URI_HOME);
 }
