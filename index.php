@@ -32,8 +32,8 @@ if (DEBUG_MODE) {
 
 	$VBDebug->clear();
 	$VBDebug->add('BASEPATH', BASEPATH);
-	$VBDebug->add('GET', $_GET);
-	$VBDebug->add('POST', $_POST);
+	$VBDebug->add('GET', $Core->get_array('GET'));
+	$VBDebug->add('POST', $Core->get_array('POST'));
 	$VBDebug->add('SESSION', $_SESSION);
 	$VBDebug->add('CUSTOMVARS', $vars);
 

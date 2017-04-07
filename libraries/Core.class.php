@@ -172,7 +172,7 @@ class Core {
 	}
 
 	public function check_perm() {
-		$perm = TRUE;
+		$perm = FALSE;
 		/*
 		  $perm = FALSE;
 		  $session_user = $this->Session->get('user');

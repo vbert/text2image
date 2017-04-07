@@ -29,8 +29,8 @@ if ($Core->check_perm()) {
 
 		$VBDebug->clear();
 		$VBDebug->add('BASEPATH', BASEPATH);
-		$VBDebug->add('GET', $_GET);
-		$VBDebug->add('POST', $_POST);
+		$VBDebug->add('GET', $Core->get_array('GET'));
+		$VBDebug->add('POST', $Core->get_array('POST'));
 		$VBDebug->add('SESSION', $_SESSION);
 		$VBDebug->add('CUSTOMVARS', $vars);
 
@@ -48,7 +48,7 @@ if ($Core->check_perm()) {
 	//$server = $Core->get_array('SERVER');
 	//$hash_auth = $Core->generate_hash($server['PHP_AUTH_USER'] . $server['PHP_AUTH_PW']);
 } else {
-	//exit('Nie posiadasz uprawnień do oglądania tej strony.');
-	$uri_login = $Core->build_uri(array('o=AUTH', 'a=LOGIN'));
-	header('Location: ' . $uri_login);
+	$Server = $Core->get_array('SERVER');
+	$uri_next = URI_LOGIN . '&next=' . $Server['REQUEST_URI'];
+	header('Location: ' . $uri_next);
 }

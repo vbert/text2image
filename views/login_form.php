@@ -17,6 +17,7 @@
 		<!-- Form -->
 		<form id="LoginForm" action="<?= $uri_do_login; ?>" method="POST">
 			<input type="hidden" name="hash" value="<?= $hash; ?>">
+			<input type="hidden" name="next" value="<?= $next; ?>">
 			<div class="group">
 				<input type="text" name="login" data-validation="length alphanumeric" data-validation-length="min5">
 				<span class="highlight"></span><span class="bar"></span>
@@ -41,9 +42,9 @@
 		<script src="<?= BASEURI; ?>assets/js/login-form.min.js" type="text/javascript"></script>
 		<script src="<?= BASEURI; ?>assets/js/form-validator/jquery.form-validator.min.js" type="text/javascript"></script>
 		<script type="text/javascript">
-			$.validate({
-				lang: 'pl'
-			});
+				$.validate({
+					lang: 'pl'
+				});
 		</script>
 	</body>
 </html>

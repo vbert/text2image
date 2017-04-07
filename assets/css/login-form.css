@@ -23,13 +23,39 @@ hgroup {
 	margin-top: 2%;
 }
 
-h1, h2 { margin: 0.6% auto 1.4%; }
-h1 { font-weight: 300; color: #636363; }
-h2 { font-weight: 600; color: #444; }
-p { margin: 0.4% auto 0.8%; }
+h1,
+h2 {
+	margin: 0.6% auto 1.4%;
+}
+
+h1 {
+	font-size: 200%;
+	font-weight: 300;
+	color: #636363;
+}
+
+h2 {
+	font-size: 160%;
+	font-weight: 600;
+	color: #444;
+}
+
+@media (max-width: 767px) {
+	h1 {
+		font-size: 160%;
+	}
+
+	h2 {
+		font-size: 120%;
+	}
+}
+
+p {
+	margin: 0.4% auto 0.8%;
+}
 
 form {
-	width: 20%;
+	width: 40%;
 	min-width: 290px;
 	max-width: 380px;
 	margin: 4% auto 1.4%;
