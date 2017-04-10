@@ -75,6 +75,33 @@ class Core {
 	protected $default_action;
 
 	/**
+	 * @var array
+	 */
+	protected $navbar_items = array(
+		'PROJECT_LIST' => array(
+			'param_uri' => array('o=PROJECT', 'a=LIST'),
+			'title' => 'Lista projektów',
+			'active' => FALSE,
+			'for_loggedin' => 2, // 0 - No, 1 - Yes, 2 - No & Yes
+			'for_admin' => 2 // 0 - No, 1 - Yes, 2 - No & Yes
+		),
+		'AUTH_LOGIN' => array(
+			'param_uri' => array('o=AUTH', 'a=LOGIN'),
+			'title' => 'Zaloguj',
+			'active' => FALSE,
+			'for_loggedin' => 0,
+			'for_admin' => 2
+		),
+		'AUTH_LOGOUT' => array(
+			'param_uri' => array('o=AUTH', 'a=LOGOUT'),
+			'title' => 'Wyloguj',
+			'active' => FALSE,
+			'for_loggedin' => 1,
+			'for_admin' => 2
+		)
+	);
+
+	/**
 	 * Constructor
 	 */
 	public function __construct() {
@@ -467,6 +494,85 @@ class Core {
 		$format = '<div class="%s" role="alert">%s<p>%s</p></div>';
 		return sprintf($format, $type, $title, $text);
 	}
+
+	public function navbar($loggedin = FALSE, $admin = FALSE) {
+		$object = $this->get_current_object();
+		$action = $this->get_current_action();
+
+		if (strlen($object) > 0 && strlen($action)) {
+			$current = $object . '_' . $action;
+		} else {
+			$current = '';
+		}
+
+		if ($admin) {
+			return $this->set_navbar_admin($current, $loggedin);
+		} else {
+			return $this->set_navbar_user($current, $loggedin);
+		}
+	}
+
+	private function set_navbar_user($current, $loggedin) {
+		return $this->get_navbar_items($current, $loggedin);
+	}
+
+	private function set_navbar_admin($current, $loggedin) {
+		return $this->get_navbar_items($current, $loggedin, TRUE);
+	}
+
+	private function get_navbar_items($current, $loggedin, $admin = FALSE) {
+		$items = array();
+		foreach ($this->navbar_items as $key => $value) {
+			if (($admin && ($value['for_admin'] === 1 || $value['for_admin'] === 2)) &&
+				(($loggedin && ($value['for_loggedin'] === 1 || $value['for_loggedin'] === 2)) ||
+				($loggedin === FALSE && ($value['for_loggedin'] === 0 || $value['for_loggedin'] === 2)))) {
+				$items[$key] = $this->set_navbar_item($current, $key, $value);
+			} elseif (($admin === FALSE && ($value['for_admin'] === 0 || $value['for_admin'] === 2)) &&
+				(($loggedin && ($value['for_loggedin'] === 1 || $value['for_loggedin'] === 2)) ||
+				($loggedin === FALSE && ($value['for_loggedin'] === 0 || $value['for_loggedin'] === 2)))) {
+				$items[$key] = $this->set_navbar_item($current, $key, $value);
+			}
+		}
+		return $items;
+	}
+
+	private function set_navbar_item($current, $key, $value) {
+		$uri = ($value['for_admin'] === 1) ?
+			$this->build_admin_uri($value['param_uri']) :
+			$this->build_uri($value['param_uri']);
+		$active = ($key === $current) ? TRUE : FALSE;
+		$item = array(
+			'uri' => $uri,
+			'title' => $value['title'],
+			'active' => $active,
+			'for_loggedin' => $value['for_loggedin']
+		);
+		return $item;
+	}
+
+	/*
+	  'PROJECT_LIST' => array(
+	  'param_uri' => array('o=PROJECT', 'a=LIST'),
+	  'title' => 'Lista projektów',
+	  'active' => FALSE,
+	  'for_loggedin' => 2, // 0 - No, 1 - Yes, 2 - No & Yes
+	  'for_admin' => 1 // 0 - No, 1 - Yes, 2 - No & Yes
+	  ),
+	  'AUTH_LOGIN' => array(
+	  'param_uri' => array('o=AUTH', 'a=LOGIN'),
+	  'title' => 'Zaloguj',
+	  'active' => FALSE,
+	  'for_loggedin' => 0,
+	  'for_admin' => 2
+	  ),
+	  'AUTH_LOGOUT' => array(
+	  'param_uri' => array('o=AUTH', 'a=LOGOUT'),
+	  'title' => 'Wyloguj',
+	  'active' => FALSE,
+	  'for_loggedin' => 1,
+	  'for_admin' => 2
+	  )
+	 */
 
 	/**
 	 * =====================================================================

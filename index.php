@@ -14,10 +14,10 @@ $action = $Core->get_current_action();
 if ($Core->in_objects($object) && $Core->in_actions($action)) {
 	$controller_name = $Core->build_controller_name(array($object, $action));
 	if ($object !== 'AUTH' && $action !== 'LOGIN') {
-		$Session->del('hash');
-		$Session->del('hash_time');
+		$Session->del('form_hash');
+		$Session->del('form_hash_time');
 	}
-	$uri_project_list = $Core->build_uri(array('o=PROJECT', 'a=LIST'));
+
 	$uri_admin = $Core->build_admin_uri();
 	$uri_logout = URI_LOGOUT;
 } else {
@@ -43,5 +43,11 @@ if (DEBUG_MODE) {
 } else {
 	$debug = FALSE;
 }
+
+$navbar_data = array(
+	'items' => $Core->navbar(FALSE, FALSE)
+);
+$navbar_tpl = 'inc/navbar.php';
+$navbar = $Tpl->load($navbar_tpl, $navbar_data, TRUE);
 
 include $Core->get_controllers_dir() . $controller_name;

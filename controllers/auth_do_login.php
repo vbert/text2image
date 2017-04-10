@@ -37,7 +37,7 @@ if (array_key_exists('login', $post) && array_key_exists('password', $post) && a
 				if ($next) {
 					header('Location: ' . $next);
 				} else {
-					header('Location: ' . URI_ADMIN);
+					header('Location: ' . URI_HOME);
 				}
 			} else {
 				$alert = array(
