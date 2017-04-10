@@ -6,12 +6,6 @@ if (!defined('BASEPATH')) {
 
 $content = '<h1>Text2Image</h1>';
 
-//require $Core->get_views_dir() . 'base.php';
-$data = array(
-	'debug' => $debug,
-	'content' => $content
-);
-
+$data['content'] = $content;
 $template = 'inc/base.php';
-
 $Tpl->load($template, $data);

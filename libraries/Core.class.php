@@ -220,17 +220,55 @@ class Core {
 		$perm = FALSE;
 
 		$DBUsers = new \VbertTools\JSON_File(DBUSERS);
-		$Users = $DBUsers->get(DBPATH, TRUE)[0];
+		$Users = $DBUsers->get(DBPATH, TRUE);
 		$session_user = $this->Session->get('user');
 
 		if (array_key_exists($session_user['name'], $Users)) {
 			$user = $Users[$session_user['name']];
+			$time_now = time();
+			$session_time = $time_now - $session_user['timestamp'];
 			if ($this->hash_user_to_session($user['password']) === $session_user['hash']) {
-				$perm = TRUE;
+				if ($session_time <= SESSION_TIME_LIMIT) {
+					$session_user['timestamp'] = $time_now;
+					$this->Session->set('user', $session_user);
+					$perm = TRUE;
+				} else {
+					$alert = array(
+						'text' => 'Sesja wygasła. Proszę zalogować się ponownie.',
+						'type' => ALERT_WARNING,
+						'title' => 'UWAGA!'
+					);
+					$this->Session->set('alert', $alert);
+					$this->delete_login_session();
+				}
+			} else {
+				$alert = array(
+					'text' => 'Nieprawidłowy login użytkownika',
+					'type' => ALERT_DANGER,
+					'title' => 'BŁĄD!'
+				);
+				$this->Session->set('alert', $alert);
+				$this->delete_login_session();
 			}
+		} else {
+			$alert = array(
+				'text' => 'Nieprawidłowe dane użytkownika',
+				'type' => ALERT_DANGER,
+				'title' => 'BŁĄD!'
+			);
+			$this->Session->set('alert', $alert);
+			$this->delete_login_session();
 		}
 
 		return $perm;
+	}
+
+	/**
+	 * Check is user logged
+	 * @return boolean
+	 */
+	public function check_loggedin() {
+		return $this->Session->get('loggedin');
 	}
 
 	/**
@@ -255,6 +293,16 @@ class Core {
 		} else {
 			header('Location: ' . URI_HOME);
 		}
+	}
+
+	/**
+	 * Delete data about login
+	 */
+	public function delete_login_session() {
+		$this->Session->del('user');
+		$this->Session->del('loggedin');
+		$this->Session->del('form_hash');
+		$this->Session->del('form_hash_time');
 	}
 
 	/**
@@ -524,12 +572,12 @@ class Core {
 		$items = array();
 		foreach ($this->navbar_items as $key => $value) {
 			if (($admin && ($value['for_admin'] === 1 || $value['for_admin'] === 2)) &&
-				(($loggedin && ($value['for_loggedin'] === 1 || $value['for_loggedin'] === 2)) ||
-				($loggedin === FALSE && ($value['for_loggedin'] === 0 || $value['for_loggedin'] === 2)))) {
+					(($loggedin && ($value['for_loggedin'] === 1 || $value['for_loggedin'] === 2)) ||
+					($loggedin === FALSE && ($value['for_loggedin'] === 0 || $value['for_loggedin'] === 2)))) {
 				$items[$key] = $this->set_navbar_item($current, $key, $value);
 			} elseif (($admin === FALSE && ($value['for_admin'] === 0 || $value['for_admin'] === 2)) &&
-				(($loggedin && ($value['for_loggedin'] === 1 || $value['for_loggedin'] === 2)) ||
-				($loggedin === FALSE && ($value['for_loggedin'] === 0 || $value['for_loggedin'] === 2)))) {
+					(($loggedin && ($value['for_loggedin'] === 1 || $value['for_loggedin'] === 2)) ||
+					($loggedin === FALSE && ($value['for_loggedin'] === 0 || $value['for_loggedin'] === 2)))) {
 				$items[$key] = $this->set_navbar_item($current, $key, $value);
 			}
 		}
@@ -538,8 +586,8 @@ class Core {
 
 	private function set_navbar_item($current, $key, $value) {
 		$uri = ($value['for_admin'] === 1) ?
-			$this->build_admin_uri($value['param_uri']) :
-			$this->build_uri($value['param_uri']);
+				$this->build_admin_uri($value['param_uri']) :
+				$this->build_uri($value['param_uri']);
 		$active = ($key === $current) ? TRUE : FALSE;
 		$item = array(
 			'uri' => $uri,

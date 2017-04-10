@@ -10,45 +10,19 @@ define('BASEPATH', realpath(ADMINBASEPATH . '/../'));
 require_once BASEPATH . '/config/general.php';
 
 if ($Core->check_perm()) {
-	$object = $Core->get_current_object();
-	$action = $Core->get_current_action();
-
 	if ($Core->in_objects($object) && $Core->in_actions($action)) {
 		$controller_name = $Core->build_controller_name(array($object, $action));
 	} else {
 		header('Location: ' . ADMIN_URI_HOME);
 	}
 
-
-
-	// For debug
-	if (DEBUG_MODE) {
-		$vars = array(
-			'OBJECT' => $object,
-			'ACTION' => $action,
-			'CONTROLLER' => $controller_name
-		);
-
-		$VBDebug->clear();
-		$VBDebug->add('BASEPATH', BASEPATH);
-		$VBDebug->add('GET', $Core->get_array('GET'));
-		$VBDebug->add('POST', $Core->get_array('POST'));
-		$VBDebug->add('SESSION', $_SESSION);
-		$VBDebug->add('CUSTOMVARS', $vars);
-
-		$debug = $VBDebug->get_all();
-	} else {
-		$debug = FALSE;
-	}
+	$navbar_data = array(
+		'items' => $Core->navbar($Core->check_loggedin(), TRUE)
+	);
+	$navbar_tpl = 'inc/navbar.php';
+	$data['navbar'] = $Tpl->load($navbar_tpl, $navbar_data, TRUE);
 
 	include $Core->get_controllers_dir('admin') . $controller_name;
-
-	//$up1 = 'adminAdm@Marzec!2017';
-	//$up2 = 'editorEdi!Marzec@2017';
-	//$hup1 = $Core->hash_user($up1);
-	//$hup2 = $Core->hash_user($up2);
-	//$server = $Core->get_array('SERVER');
-	//$hash_auth = $Core->generate_hash($server['PHP_AUTH_USER'] . $server['PHP_AUTH_PW']);
 } else {
 	$Server = $Core->get_array('SERVER');
 	$next = PROTOCOL . $Server['SERVER_NAME'] . $Server['REQUEST_URI'];

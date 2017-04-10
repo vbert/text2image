@@ -76,7 +76,7 @@ class JSON_File {
 		if (file_exists($file)) {
 			$content = file_get_contents($file);
 		} else {
-			$content = '[{"error":"Plik nie istnieje!"}]';
+			$content = '{"error":"Plik nie istnieje!"}';
 		}
 		return $content;
 	}
@@ -108,7 +108,7 @@ class JSON_File {
 			fclose($handle);
 			return $size;
 		} else {
-			return '[{"error":"Plik nie istnieje!"}]';
+			return '{"error":"Plik nie istnieje!"}';
 		}
 	}
 

@@ -71,4 +71,6 @@ define('DB_USERS', DBPATH . 'appusers');
 define('PROJECTS_USERS_URI', PROJECTS_URI . '%s/users/');
 define('PROJECT_OUTPUT_FILE', 'out.jpg');
 
+define('SESSION_TIME_LIMIT', 60); // 30 min = 1800 sek
+
 require LIBPATH . 'init.php';

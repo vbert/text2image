@@ -25,3 +25,29 @@ $Slug = new \VbertTools\Slug();
 $Core = new \VbertTools\Core();
 $Tpl = new \VbertTools\Template();
 $Project = new \VbertTools\Project();
+
+$object = $Core->get_current_object();
+$action = $Core->get_current_action();
+
+// For debug
+if (DEBUG_MODE) {
+	$vars = array(
+		'OBJECT' => $object,
+		'ACTION' => $action
+	);
+
+	$VBDebug->clear();
+	$VBDebug->add('BASEPATH', BASEPATH);
+	$VBDebug->add('GET', $Core->get_array('GET'));
+	$VBDebug->add('POST', $Core->get_array('POST'));
+	$VBDebug->add('SESSION', $_SESSION);
+	$VBDebug->add('CUSTOMVARS', $vars);
+
+	$debug = $VBDebug->get_all();
+} else {
+	$debug = FALSE;
+}
+
+$data = array(
+	'debug' => $debug
+);

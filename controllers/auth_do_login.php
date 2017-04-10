@@ -14,15 +14,15 @@ if (array_key_exists('login', $post) && array_key_exists('password', $post) && a
 	$session_form_hash = $Session->get('form_hash');
 
 	if ($form_hash === $session_form_hash) {
+
 		$DBUsers = new \VbertTools\JSON_File(DBUSERS);
-		$Users = $DBUsers->get(DBPATH, TRUE)[0];
+		$Users = $DBUsers->get(DBPATH, TRUE);
 
 		if (array_key_exists($login, $Users)) {
 			$user = $Users[$login];
 			$hash_password = $Core->hash_password($login, $password);
 
 			if ($hash_password === $user['password']) {
-
 				$session_user = array(
 					'timestamp' => time(),
 					'name' => $login,
