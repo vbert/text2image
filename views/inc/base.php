@@ -24,30 +24,14 @@
 		</main>
 		<!-- /Page Content -->
 		<!-- Footer -->
-		<footer>
-			<div class="container">
-				<div class="row">
-					<div class="col-md-3 col-sm-12">
-						<p><a href="<?= URI_HOME; ?>"><span class="sol-txt"><?= APP_NAME; ?></span></a> &copy; <?= CURRENT_YEAR; ?></p>
-					</div>
-				</div>
-			</div>
-		</footer><!-- /Footer -->
-		<?php if ($debug): ?>
-			<div id="vb-debug">
-				<h3 id="vb-debug-title">DEBUG:</h3>
-				<div class="table-responsive in-vb-debug">
-					<?php
-					var_dump($debug);
-					?>
-				</div>
-			</div>
-		<?php endif; ?>
+		<?= $footer; ?><!-- /Footer -->
+		<!-- Debug -->
+		<?php if ($debug): ?><?= $debug; ?><?php endif; ?><!-- /Debug -->
 		<!-- JavaScript -->
 		<script type="text/javascript">
-				var Text2Image = {
-					baseuri: "<?= BASEURI; ?>"
-				};
+			var Text2Image = {
+				baseuri: "<?= BASEURI; ?>"
+			};
 		</script>
 		<script src="<?= BASEURI; ?>assets/js/jquery-3.1.1.min.js" type="text/javascript"></script>
 		<script src="<?= BASEURI; ?>assets/js/bootstrap.min.js" type="text/javascript"></script>

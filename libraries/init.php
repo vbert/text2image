@@ -43,11 +43,16 @@ if (DEBUG_MODE) {
 	$VBDebug->add('SESSION', $_SESSION);
 	$VBDebug->add('CUSTOMVARS', $vars);
 
-	$debug = $VBDebug->get_all();
+	$navbar_tpl = 'inc/debug.php';
+	$debug_data['debug'] = $VBDebug->get_all();
+	$debug = $Tpl->load($navbar_tpl, $debug_data, TRUE);
 } else {
 	$debug = FALSE;
 }
 
+$footer = $Tpl->load('inc/footer.php', array(), TRUE);
+
 $data = array(
-	'debug' => $debug
+	'debug' => $debug,
+	'footer' => $footer
 );

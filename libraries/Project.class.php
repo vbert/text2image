@@ -15,6 +15,11 @@ if (!defined('BASEPATH')) {
 class Project extends JSON_File {
 
 	/**
+	 * @var string Path to projects
+	 */
+	protected $projects_path;
+
+	/**
 	 * @var array Projects data
 	 */
 	protected $projects = array();
@@ -41,17 +46,9 @@ class Project extends JSON_File {
 	 */
 	public function set_projects($projects_path = PROJECTSPATH) {
 		if (strlen($projects_path) > 0) {
-			$dirs = scandir($projects_path);
-			foreach ($dirs as $dir) {
-				if ($dir !== '.' && $dir !== '..') {
-					$path = $projects_path . $dir . '/';
-					if (is_dir($path)) {
-						$data = $this->get($path);
-						$key = $data[0]->name;
-						$this->projects[$key] = $data[0];
-					}
-				}
-			}
+			$DBProjects = new \VbertTools\JSON_File(DBPROJECTS);
+			$this->projects = $DBProjects->get(DBPATH, TRUE);
+			$this->projects_path = $projects_path;
 		}
 	}
 
@@ -84,13 +81,14 @@ class Project extends JSON_File {
 	}
 
 	/**
-	 * Set path to project files
+	 * Set path to current project files
 	 * @param string $project_name
 	 */
 	public function set_project_path() {
-		if (strlen($this->get_project_name()) > 0) {
-			$hash_name = md5($this->get_project_name());
-			$format = PROJECTSPATH . '%s/';
+		$name = $this->get_project_name();
+		if (strlen($name) > 0) {
+			$hash_name = md5($name);
+			$format = $this->projects_path . '%s/';
 			$args = array($hash_name);
 			$path = vsprintf($format, $args);
 			$this->project_path = $path;
