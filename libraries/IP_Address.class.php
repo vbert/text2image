@@ -27,6 +27,14 @@ class IP_Address {
 	}
 
 	/**
+	 * Get IP address
+	 * @return string
+	 */
+	public function get() {
+		return $this->ip;
+	}
+
+	/**
 	 * Set IP address
 	 * @return string
 	 */
@@ -67,14 +75,6 @@ class IP_Address {
 			}
 		}
 		return $result;
-	}
-
-	/**
-	 * Get IP address
-	 * @return string
-	 */
-	public function get() {
-		return $this->ip;
 	}
 
 }
