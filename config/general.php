@@ -1,7 +1,7 @@
 <?php
 
 if (!defined('BASEPATH')) {
-	exit('Bezpośredni dostęp do skryptu jest niedozwolony!');
+    exit('Bezpośredni dostęp do skryptu jest niedozwolony!');
 }
 
 require_once 'user.php';
@@ -13,22 +13,22 @@ require_once 'user.php';
  * @copyright (c) 2017
  */
 if (filter_input(INPUT_SERVER, 'HTTP_HOST') === 'localhost') {
-	define('LOCAL_SERV', TRUE);
+    define('LOCAL_SERV', TRUE);
 } else {
-	define('LOCAL_SERV', FALSE);
+    define('LOCAL_SERV', FALSE);
 }
 
 if (LOCAL_SERV) {
-	error_reporting(E_ALL & ~E_DEPRECATED);
-	date_default_timezone_set('Europe/Warsaw');
-	define('PROTOCOL', 'http://');
-	define('BASEURI', 'http://localhost/text2image/');
-	define('DEBUG_MODE', TRUE);
+    error_reporting(E_ALL & ~E_DEPRECATED);
+    date_default_timezone_set('Europe/Warsaw');
+    define('PROTOCOL', 'http://');
+    define('BASEURI', 'http://localhost/text2image/');
+    define('DEBUG_MODE', TRUE);
 } else {
-	error_reporting(0);
-	define('PROTOCOL', $user_config['protocol'] . '://');
-	define('BASEURI', $user_config['baseuri']);
-	define('DEBUG_MODE', FALSE);
+    error_reporting(0);
+    define('PROTOCOL', $user_config['protocol'] . '://');
+    define('BASEURI', $user_config['baseuri']);
+    define('DEBUG_MODE', FALSE);
 }
 
 define('APP_NAME', $user_config['app_name']);

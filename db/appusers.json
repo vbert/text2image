@@ -1,10 +1,10 @@
 {
-	"admin": {
-		"login": "admin",
-		"password": "$2y$07$YWRtaW5BZG1ATWFyemVjIOD.OapSFLk9zKEqFLsueULhp9unswda."
-	},
-	"editor": {
-		"login": "editor",
-		"password": "$2y$07$ZWRpdG9yRWRpIU1hcnplYu2ln1uifD5PsBrPsdphtHhsJE.g5JMty"
-	}
+    "admin": {
+        "login": "admin",
+        "password": "$2y$07$YWRtaW5Ub0plc3QhQmFyZ.p3Zu6gZFSE0zuOQuzLJ.4Omqm51qJ4C"
+    },
+    "editor": {
+        "login": "editor",
+        "password": "$2y$07$ZWRpdG9yVG9KZXN0IVRhaevbBmMZ.bfxMiS2CscVV8sfPUJTr/yMe"
+    }
 }

@@ -1,7 +1,7 @@
 <?php
 
 if (!defined('BASEPATH')) {
-	exit('Bezpośredni dostęp do skryptu jest niedozwolony!');
+    exit('Bezpośredni dostęp do skryptu jest niedozwolony!');
 }
 
 //$Server = $Core->get_array('SERVER');

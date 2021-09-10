@@ -1,7 +1,7 @@
 <?php
 
 if (!defined('BASEPATH')) {
-	exit('Bezpośredni dostęp do skryptu jest niedozwolony!');
+    exit('Bezpośredni dostęp do skryptu jest niedozwolony!');
 }
 
 /**
@@ -11,11 +11,11 @@ if (!defined('BASEPATH')) {
  * @copyright (c) 2017
  */
 $user_config = array(
-	// Application name, default 'Text2Image'
-	'app_name' => 'Text2Image',
-	// Short description for head title, default 'Edytor tekstu na zdjęciu'
-	'head_title' => 'Edytor tekstu na zdjęciu',
-	//
-	'protocol' => 'http',
-	'baseuri' => 'http://.../text2image/'
+    // Application name, default 'Text2Image'
+    'app_name' => 'Text2Image',
+    // Short description for head title, default 'Edytor tekstu na zdjęciu'
+    'head_title' => 'Edytor tekstu na zdjęciu',
+    //
+    'protocol' => 'http',
+    'baseuri' => 'http://localhost/text2image/'
 );

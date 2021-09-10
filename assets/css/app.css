@@ -6,100 +6,100 @@
  */
 
 body {
-	padding-top: 50px;
-	background-color: #EEE;
+    padding-top: 50px;
+    background-color: #EEE;
 }
 
 body,
 h1, h2, h3, h4, p,
 .font-OpenSans {
-	font-family: 'Open Sans', sans-serif;
+    font-family: 'Open Sans', sans-serif;
 }
 
 p,
 ul {
-	margin-bottom: .56em;
-	line-height: 21px;
-	font-size: 14px;
-	color: #666;
+    margin-bottom: .56em;
+    line-height: 21px;
+    font-size: 14px;
+    color: #666;
 }
 
 a {
-	-webkit-transition: color .2s linear;
-	-moz-transition: color .2s linear;
-	-ms-transition: color .2s linear;
-	-o-transition: color .2s linear;
-	transition: color .2s linear;
+    -webkit-transition: color .2s linear;
+    -moz-transition: color .2s linear;
+    -ms-transition: color .2s linear;
+    -o-transition: color .2s linear;
+    transition: color .2s linear;
 }
 
 .text-middle {
-	vertical-align: middle;
+    vertical-align: middle;
 }
 
 .opacity-08 {
-	opacity: .8;
+    opacity: .8;
 }
 
 .opacity-09 {
-	opacity: .9;
+    opacity: .9;
 }
 
 .bg-blue {
-	background-color: #008ECB !important;
+    background-color: #008ECB !important;
 }
 
 .bg-white {
-	background-color: #fff !important;
+    background-color: #fff !important;
 }
 
 /**
  * HEADER
  */
 .navbar {
-	margin: 0;
+    margin: 0;
 }
 
 /**
  * MAIN
  */
 main {
-	background-color: #FFF;
+    background-color: #FFF;
 }
 
 /**
  * FOOTER
  */
 footer {
-	padding-top: .4em;
-	border-top: 1px solid #DDD;
+    padding-top: .4em;
+    border-top: 1px solid #DDD;
 }
 
 /* VB-DEBUG div */
 #vb-debug {
-	position: fixed;
-	bottom: -323px;
-	right: 10px;
-	z-index: 10000;
-	width: 40%;
-	height: 370px;
-	padding: 3px 4px;
-	border: 1px solid #ddd;
-	background: #f1f1f1;
-	opacity: .4;
-	box-shadow: 0 0 18px rgba(0,0,0,.5);
+    position: fixed;
+    bottom: -323px;
+    right: 10px;
+    z-index: 10000;
+    width: 40%;
+    height: 370px;
+    padding: 3px 4px;
+    border: 1px solid #ddd;
+    background: #f1f1f1;
+    opacity: .4;
+    box-shadow: 0 0 18px rgba(0,0,0,.5);
 }
 #vb-debug h3 {
-	padding: 0 4px;
-	margin: 0 0 8px 0;
-	line-height: 39px;
-	background: #272822;
-	color: #a5e12c;
-	font-size: 1.3em;
-	text-align: center;
-	cursor: pointer;
+    padding: 0 4px;
+    margin: 0 0 8px 0;
+    line-height: 39px;
+    background: #272822;
+    color: #a5e12c;
+    font-size: 1.3em;
+    text-align: center;
+    cursor: pointer;
 }
 #vb-debug .in-vb-debug {
-	overflow-x: auto;
-	overflow-y: auto;
-	height: 315px;
+    overflow-x: auto;
+    overflow-y: auto;
+    height: 315px;
 }

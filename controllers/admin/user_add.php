@@ -1,7 +1,7 @@
 <?php
 
 if (!defined('BASEPATH')) {
-	exit('Bezpośredni dostęp do skryptu jest niedozwolony!');
+    exit('Bezpośredni dostęp do skryptu jest niedozwolony!');
 }
 
 
@@ -21,8 +21,8 @@ $content = '';
 
 
 $data = array(
-	'debug' => $debug,
-	'content' => $content
+    'debug' => $debug,
+    'content' => $content
 );
 
 $template = 'inc/base.php';
